@@ -1,4 +1,4 @@
-`include "one_bit_adder.v"
+//`include "one_bit_adder.v"
 
 module adder(A, B, C, overflow);
 	input [5:0] A;

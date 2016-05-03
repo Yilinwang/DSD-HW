@@ -25,5 +25,5 @@ assign result = (Op_i == 2'b00)? {{6{1'b0}}, add[5:0]}:
                 (Op_i == 2'b01)? {{6{1'b0}}, sub[5:0]}:
                 (Op_i == 2'b10)? mult:
                 (Op_i == 2'b11)? div : 0;
-assign data_o = (Led_i == 1'b1)? {A, B}: result;
+assign data_o = (Led_i == 1'b0)? {A, B}: result;
 endmodule

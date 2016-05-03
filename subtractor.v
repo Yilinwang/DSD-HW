@@ -1,4 +1,4 @@
-`include "adder.v"
+//`include "adder.v"
 module subtractor(A, B, C, overflow);
 	input [5:0] A, B;
 	output [5:0] C;
