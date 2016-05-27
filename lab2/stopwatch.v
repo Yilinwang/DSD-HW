@@ -1,3 +1,7 @@
+`include "counter.v"
+`include "two_digit_ss.v"
+//`include "lcd.v"
+
 module stopwatch(
 	clock_i,
    	button_i, 

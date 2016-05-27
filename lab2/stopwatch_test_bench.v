@@ -1,5 +1,5 @@
-`include "counter.v"
-module main();
+`include "stopwatch.v"
+module stopwatch_test_bench();
 
 reg enable, reset, clock;
 wire [7:0] counter_o;
