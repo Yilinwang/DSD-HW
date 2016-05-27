@@ -23,7 +23,7 @@ begin
 	if(tmp == 500000) begin
 		tmp = 8'b00000000;
 		counter_o = counter_o + 1;
-		$display("%4dns: counter_o=%d", $time, counter_o); 
+		//$display("%4dns: counter_o=%d", $time, counter_o); 
 	end
 end
 
