@@ -1,4 +1,4 @@
-`include "seven_segment.v"
+//`include "seven_segment.v"
 
 module two_digit_ss(num_i, hi_o, lo_o);
 input [6:0] num_i;

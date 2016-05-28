@@ -2,7 +2,7 @@ module counter(enable, reset, clock, counter_o);
 input enable;
 input reset;
 input clock;
-output reg [100:0] counter_o;
+output reg [63:0] counter_o;
 reg [20:0] tmp;
 
 initial begin
@@ -13,12 +13,14 @@ end
 
 always @(posedge clock)
 begin
-	if(reset) begin
+	if(reset == 1) begin
 		counter_o = 0;
 		tmp = 0;
+		$diplay("counter_o=%d, tmp=%d", counter_o, tmp);
 	end
-	else if(enable) begin
+	if(enable == 1) begin
 		tmp = tmp + 1;
+		$diplay("tmp=%d", tmp);
 	end
 
 	//if(tmp == 500000) begin

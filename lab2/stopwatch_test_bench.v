@@ -1,9 +1,9 @@
-`include "stopwatch.v"
+//`include "stopwatch.v"
 module stopwatch_test_bench;
 
 //reg enable, reset;
 reg clock;
-wire [7:0] counter_o;
+wire [63:0] counter_o;
 reg [3:0] button_i;
 wire [6:0] ms_hi_o, ms_lo_o, sec_hi_o, sec_lo_o, min_hi_o, min_lo_o, hr_hi_o, hr_lo_o;
 
@@ -21,36 +21,53 @@ initial begin
 	button_i[3] = 1;  
 
 	//reset
-	#5 button_i[1] = 1;
+	#5
+	$display("reset!");
+	button_i[1] = 1;
 	#10 button_i[1] = 0;
 	#5 button_i[1] = 1;
 
 	//begin
-	#200 button_i[3] = 1; 
+	#200 
+	$display("begin!");
+	button_i[3] = 1; 
 	#10 button_i[3] = 0; 
 	#10 button_i[3] = 1;
 
-	/*
 	//pause
-	#200 button_i[3] = 1; 
-	#10 button_i[3] = 0; 
-	#10 button_i[3] = 1;
-
-	//begin
-	#500 button_i[3] = 1; 
+	#500 
+	$display("pause!");
+	button_i[3] = 1; 
 	#10 button_i[3] = 0; 
 	#10 button_i[3] = 1;
 
 	//reset
-	#100 button_i[1] = 1;
+	#500 
+	$display("reset!");
+	button_i[1] = 1;
 	#10 button_i[1] = 0;
 	#5 button_i[1] = 1;
 
 	//begin
-	#500 button_i[3] = 1; 
+	#500 
+	$display("begin!");
+	button_i[3] = 1; 
 	#10 button_i[3] = 0; 
 	#10 button_i[3] = 1;
-	*/
+
+	//reset
+	#300 
+	$display("reset!");
+	button_i[1] = 1;
+	#10 button_i[1] = 0;
+	#5 button_i[1] = 1;
+
+	//begin
+	#500 
+	$display("begin!");
+	button_i[3] = 1; 
+	#10 button_i[3] = 0; 
+	#10 button_i[3] = 1;
 
 end
 

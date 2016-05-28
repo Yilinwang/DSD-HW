@@ -1,5 +1,5 @@
-`include "counter.v"
-`include "two_digit_ss.v"
+//`include "counter.v"
+//`include "two_digit_ss.v"
 //`include "lcd.v"
 
 module stopwatch(
@@ -15,11 +15,11 @@ module stopwatch(
 
 input clock_i;
 input [3:0] button_i;
-output [7:0] counter_o;
+output [63:0] counter_o;
 output [6:0] ms_hi_o, ms_lo_o, sec_hi_o, sec_lo_o, min_hi_o, min_lo_o, hr_hi_o, hr_lo_o;
 //output lcd_o;
 
-reg enable;
+reg enable, reset;
 wire [6:0] milisecond, second, minute, hour;
 reg record_times;
 reg [31:0] first_rec, second_rec;
@@ -40,21 +40,24 @@ end
 
 // electric potential of button: high -> low(press) -> high
 // module counter(enable, reset, clock, counter_o);
-counter c0(enable, ~button_i[1], clock_i, counter_o);
+counter c0(enable, reset, clock_i, counter_o);
 
 always @(posedge clock_i)
 begin
 	$display("milisecond=%d, second=%d, minute=%d, hour=%d", milisecond, second, minute, hour); 
 end
 
-always @(posedge button_i[3])
+always @(negedge button_i[3] or negedge button_i[1])
 begin
-	enable = ~enable;
-end
-
-always @(posedge button_i[1])
-begin
-	enable = 0;
+	if(button_i[3] == 0) begin
+		enable = ~enable;
+		reset = 0;
+	end
+	else if (button_i[1] == 0) begin
+		enable = 0;
+		reset = 1;
+	end
+	$display("enable = %d", enable);
 end
 
 assign milisecond = counter_o % 100;
