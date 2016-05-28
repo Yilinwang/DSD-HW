@@ -5,7 +5,6 @@
 module stopwatch(
 	clock_i,
  	button_i, 
-	counter_o,
 	ms_hi_o, ms_lo_o,
 	sec_hi_o, sec_lo_o,
 	min_hi_o, min_lo_o,
@@ -15,20 +14,19 @@ module stopwatch(
 
 input clock_i;
 input [3:0] button_i;
-output [63:0] counter_o;
 output [6:0] ms_hi_o, ms_lo_o, sec_hi_o, sec_lo_o, min_hi_o, min_lo_o, hr_hi_o, hr_lo_o;
 //output lcd_o;
 
 reg enable, reset;
+wire [63:0] counter_o;
 wire [6:0] milisecond, second, minute, hour;
-reg record_times;
 reg [31:0] first_rec, second_rec;
 
 initial begin
 	enable = 0;
-	record_times = 0;
-	first_rec = 0;
-	second_rec = 0;
+	reset = 0;
+	//first_rec = 0;
+	//second_rec = 0;
 end
 
 /*
@@ -42,20 +40,16 @@ end
 // module counter(enable, reset, clock, counter_o);
 counter c0(enable, reset, clock_i, counter_o);
 
-always @(posedge clock_i)
-begin
-	$display("milisecond=%d, second=%d, minute=%d, hour=%d", milisecond, second, minute, hour); 
-end
 
 always @(negedge button_i[3] or negedge button_i[1])
 begin
 	if(button_i[3] == 0) begin
-		enable = ~enable;
-		reset = 0;
+		#5 enable = ~enable;
+		#5 reset = 0;
 	end
-	else if (button_i[1] == 0) begin
-		enable = 0;
-		reset = 1;
+	if (button_i[1] == 0) begin
+		#5 enable = 0;
+		#5 reset = 1;
 	end
 	$display("enable = %d", enable);
 end
@@ -75,7 +69,6 @@ two_digit_ss hour_ss(hour, hr_hi_o, hr_lo_o);
 // LCD
 always @(posedge button_i[2])
 begin
-	record_times = record_times + 1;
 	// copy old record to second
 	assign second_rec = first_rec;
 	// record the new record
@@ -94,7 +87,6 @@ end
 
 always @(posedge button_i[0])
 begin
-	record_times = 0;
 	first_rec = 0;
 	second_rec = 0;
 	//lcd lcd(first_rec, second_rec, lcd_o);
