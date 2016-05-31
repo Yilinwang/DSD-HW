@@ -34,7 +34,7 @@ reg		preStart,mStart;
 assign	LCD_DATA	=	iDATA; 
 assign	LCD_RW		=	1'b0;
 assign	LCD_RS		=	iRS;
-assign	LCD_BLON		=	1'b1;
+assign	LCD_BLON		=	1'b0;
 assign	LCD_ON		=	1'b1;
 /////////////////////////////////////////////
 

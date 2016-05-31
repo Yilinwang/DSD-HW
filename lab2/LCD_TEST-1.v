@@ -1,14 +1,12 @@
 module	LCD_TEST (	//	Host Side
 					iCLK,iRST_N,
-					data1_i,data2_i,
 					//	LCD Side
-					LCD_DATA,LCD_RW,LCD_EN,LCD_RS,LCD_ON,LCD_BLON	);
+					LCD_DATA,LCD_RW,LCD_EN,LCD_RS	);
 //	Host Side
 input			iCLK,iRST_N;
-input	[31:0] data1_i, data2_i;
 //	LCD Side
 output	[7:0]	LCD_DATA;
-output			LCD_RW,LCD_EN,LCD_RS, LCD_ON, LCD_BLON;
+output			LCD_RW,LCD_EN,LCD_RS;
 //	Internal Wires/Registers
 reg	[5:0]	LUT_INDEX;
 reg	[8:0]	LUT_DATA;
@@ -24,7 +22,6 @@ parameter	LCD_LINE1	=	5;
 parameter	LCD_CH_LINE	=	LCD_LINE1+16;
 parameter	LCD_LINE2	=	LCD_LINE1+16+1;
 parameter	LUT_SIZE	=	LCD_LINE1+32+1;
-
 
 always@(posedge iCLK or negedge iRST_N)
 begin
@@ -75,7 +72,6 @@ end
 
 always
 begin
-	
 	case(LUT_INDEX)
 	//	Initial
 	LCD_INTIAL+0:	LUT_DATA	<=	9'h038;
@@ -84,39 +80,39 @@ begin
 	LCD_INTIAL+3:	LUT_DATA	<=	9'h006;
 	LCD_INTIAL+4:	LUT_DATA	<=	9'h080;
 	//	Line 1
-	LCD_LINE1+0:	LUT_DATA	<=	{1'b1, {4'b0000, data1_i[31:28]} + 8'h30};	//	Welcome to the
-	LCD_LINE1+1:	LUT_DATA	<=	{1'b1, {4'b0000, data1_i[27:24]} + 8'h30};
-	LCD_LINE1+2:	LUT_DATA	<=	9'h13A;
-	LCD_LINE1+3:	LUT_DATA	<=	{1'b1, {4'b0000, data1_i[23:20]} + 8'h30};
-	LCD_LINE1+4:	LUT_DATA	<=	{1'b1, {4'b0000, data1_i[19:16]} + 8'h30};
-	LCD_LINE1+5:	LUT_DATA	<=	9'h13A;
-	LCD_LINE1+6:	LUT_DATA	<=	{1'b1, {4'b0000, data1_i[15:12]} + 8'h30};
-	LCD_LINE1+7:	LUT_DATA	<=	{1'b1, {4'b0000, data1_i[11:8]} + 8'h30};
-	LCD_LINE1+8:	LUT_DATA	<=	9'h127;
-	LCD_LINE1+9:	LUT_DATA	<=	{1'b1, {4'b0000, data1_i[7:4]} + 8'h30};
-	LCD_LINE1+10:	LUT_DATA	<=	{1'b1, {4'b0000, data1_i[3:0]} + 8'h30};
+	LCD_LINE1+0:	LUT_DATA	<=	9'h120;	//	Welcome to the
+	LCD_LINE1+1:	LUT_DATA	<=	9'h157;
+	LCD_LINE1+2:	LUT_DATA	<=	9'h165;
+	LCD_LINE1+3:	LUT_DATA	<=	9'h16C;
+	LCD_LINE1+4:	LUT_DATA	<=	9'h163;
+	LCD_LINE1+5:	LUT_DATA	<=	9'h16F;
+	LCD_LINE1+6:	LUT_DATA	<=	9'h16D;
+	LCD_LINE1+7:	LUT_DATA	<=	9'h165;
+	LCD_LINE1+8:	LUT_DATA	<=	9'h120;
+	LCD_LINE1+9:	LUT_DATA	<=	9'h174;
+	LCD_LINE1+10:	LUT_DATA	<=	9'h16F;
 	LCD_LINE1+11:	LUT_DATA	<=	9'h120;
-	LCD_LINE1+12:	LUT_DATA	<=	9'h120;
-	LCD_LINE1+13:	LUT_DATA	<=	9'h120;
-	LCD_LINE1+14:	LUT_DATA	<=	9'h120;
+	LCD_LINE1+12:	LUT_DATA	<=	9'h174;
+	LCD_LINE1+13:	LUT_DATA	<=	9'h168;
+	LCD_LINE1+14:	LUT_DATA	<=	9'h165;
 	LCD_LINE1+15:	LUT_DATA	<=	9'h120;
 	//	Change Line
 	LCD_CH_LINE:	LUT_DATA	<=	9'h0C0;
 	//	Line 2
-	LCD_LINE2+0:	LUT_DATA	<=	{1'b1, {4'b0000, data2_i[31:28]} + 8'h30};	//	Welcome to the
-	LCD_LINE2+1:	LUT_DATA	<=	{1'b1, {4'b0000, data2_i[27:24]} + 8'h30};
-	LCD_LINE2+2:	LUT_DATA	<=	9'h13A;
-	LCD_LINE2+3:	LUT_DATA	<=	{1'b1, {4'b0000, data2_i[23:20]} + 8'h30};
-	LCD_LINE2+4:	LUT_DATA	<=	{1'b1, {4'b0000, data2_i[19:16]} + 8'h30};
-	LCD_LINE2+5:	LUT_DATA	<=	9'h13A;
-	LCD_LINE2+6:	LUT_DATA	<=	{1'b1, {4'b0000, data2_i[15:12]} + 8'h30};
-	LCD_LINE2+7:	LUT_DATA	<=	{1'b1, {4'b0000, data2_i[11:8]} + 8'h30};
-	LCD_LINE2+8:	LUT_DATA	<=	9'h127;
-	LCD_LINE2+9:	LUT_DATA	<=	{1'b1, {4'b0000, data2_i[7:4]} + 8'h30};
-	LCD_LINE2+10:	LUT_DATA	<=	{1'b1, {4'b0000, data2_i[3:0]} + 8'h30};
-	LCD_LINE2+11:	LUT_DATA	<=	9'h120;
-	LCD_LINE2+12:	LUT_DATA	<=	9'h120;
-	LCD_LINE2+13:	LUT_DATA	<=	9'h120;
+	LCD_LINE2+0:	LUT_DATA	<=	9'h120;	//	Altera DE2-70
+	LCD_LINE2+1:	LUT_DATA	<=	9'h141;	
+	LCD_LINE2+2:	LUT_DATA	<=	9'h16C;
+	LCD_LINE2+3:	LUT_DATA	<=	9'h174;
+	LCD_LINE2+4:	LUT_DATA	<=	9'h165;
+	LCD_LINE2+5:	LUT_DATA	<=	9'h172;
+	LCD_LINE2+6:	LUT_DATA	<=	9'h161;
+	LCD_LINE2+7:	LUT_DATA	<=	9'h120;
+	LCD_LINE2+8:	LUT_DATA	<=	9'h144;
+	LCD_LINE2+9:	LUT_DATA	<=	9'h145;
+	LCD_LINE2+10:	LUT_DATA	<=	9'h132;
+	LCD_LINE2+11:	LUT_DATA	<=	9'h1B0;
+	LCD_LINE2+12:	LUT_DATA	<=	9'h137;
+	LCD_LINE2+13:	LUT_DATA	<=	9'h130;
 	LCD_LINE2+14:	LUT_DATA	<=	9'h120;
 	LCD_LINE2+15:	LUT_DATA	<=	9'h120;
 	default:		LUT_DATA	<=	9'h120;
@@ -134,8 +130,6 @@ LCD_Controller 		u0	(	//	Host Side
 							.LCD_DATA(LCD_DATA),
 							.LCD_RW(LCD_RW),
 							.LCD_EN(LCD_EN),
-							.LCD_RS(LCD_RS),
-							.LCD_ON(LCD_ON),
-							.LCD_BLON(LCD_BLON) );
+							.LCD_RS(LCD_RS)	);
 
 endmodule
