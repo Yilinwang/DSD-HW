@@ -60,13 +60,6 @@ assign beat_o[1] = beat_i[1];
 assign beat_o[2] = beat_i[2];
 assign beat_o[3] = beat_i[3];
 
-assign AUD_ADCLRCK      = 1'bz;
-
-assign AUD_DACLRCK 		= 1'bz;     					
-assign oAUD_DACDAT 		= 1'bz;     					
-assign AUD_BCLK 		= 1'bz;     						
-assign oAUD_XCK 		= 1'bz; 
-
 assign  oAUD_XCK    =   AUD_CTRL_CLK;
 assign  AUD_ADCLRCK =   AUD_DACLRCK;
 
@@ -141,7 +134,8 @@ AUDIO_DAC ad(
     .oAUD_DATA(oAUD_DACDAT),
     .oAUD_LRCK(AUD_DACLRCK),
     //	Control Signals
-    .iSrc_Select(audio_o & switch_i),
+    //.iSrc_Select(audio_o & switch_i),
+    .iSrc_Select(1),
     .iCLK_18_4(AUD_CTRL_CLK),
     .iRST_N(DLY_RST));
 
