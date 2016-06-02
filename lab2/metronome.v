@@ -70,6 +70,8 @@ assign oAUD_XCK 		= 1'bz;
 assign  oAUD_XCK    =   AUD_CTRL_CLK;
 assign  AUD_ADCLRCK =   AUD_DACLRCK;
 
+reset_delay_m r(.iCLK(clock_i),.oRESET(DLY_RST));
+
 integer tmp1;
 integer tmp2;
 
