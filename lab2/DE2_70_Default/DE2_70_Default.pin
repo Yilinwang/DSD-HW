@@ -120,7 +120,7 @@ GND_PLL4                     : AA21      : gnd    :                   :         
 GND_PLL4                     : AA22      : gnd    :                   :         :           :                
 beat_i[3]                    : AA23      : input  : 3.3-V LVTTL       :         : 6         : Y              
 GND*                         : AA24      :        :                   :         : 6         :                
-GND*                         : AA25      :        :                   :         : 6         :                
+iSW[5]                       : AA25      : input  : 3.3-V LVTTL       :         : 6         : N              
 GND*                         : AA26      :        :                   :         : 6         :                
 GND*                         : AA27      :        :                   :         : 6         :                
 GND*                         : AA28      :        :                   :         : 6         :                
@@ -137,7 +137,7 @@ GND_PLL1                     : AB8       : gnd    :                   :         
 VCCD_PLL1                    : AB9       : power  :                   : 1.2V    :           :                
 GND                          : AB10      : gnd    :                   :         :           :                
 VCCIO8                       : AB11      : power  :                   : 3.3V    : 8         :                
-iSW[15]                      : AB12      : input  : 3.3-V LVTTL       :         : 8         : N              
+GND*                         : AB12      :        :                   :         : 8         :                
 GND*                         : AB13      :        :                   :         : 8         :                
 GND                          : AB14      : gnd    :                   :         :           :                
 VCCIO8                       : AB15      : power  :                   : 3.3V    : 8         :                
@@ -149,7 +149,7 @@ VCCIO7                       : AB20      : power  :                   : 3.3V    
 GND                          : AB21      : gnd    :                   :         :           :                
 VCCD_PLL4                    : AB22      : power  :                   : 1.2V    :           :                
 GND*                         : AB23      :        :                   :         : 6         :                
-iSW[13]                      : AB24      : input  : 3.3-V LVTTL       :         : 6         : N              
+GND*                         : AB24      :        :                   :         : 6         :                
 beat_i[1]                    : AB25      : input  : 3.3-V LVTTL       :         : 6         : Y              
 beat_i[2]                    : AB26      : input  : 3.3-V LVTTL       :         : 6         : Y              
 GND                          : AB27      : gnd    :                   :         :           :                
@@ -166,15 +166,15 @@ oDRAM0_A[9]                  : AC7       : output : 3.3-V LVTTL       :         
 GND_PLL1                     : AC8       : gnd    :                   :         :           :                
 VCCA_PLL1                    : AC9       : power  :                   : 1.2V    :           :                
 GNDA_PLL1                    : AC10      : gnd    :                   :         :           :                
-iSW[2]                       : AC11      : input  : 3.3-V LVTTL       :         : 8         : N              
+iSW[0]                       : AC11      : input  : 3.3-V LVTTL       :         : 8         : N              
 GND*                         : AC12      :        :                   :         : 8         :                
-iSW[14]                      : AC13      : input  : 3.3-V LVTTL       :         : 8         : N              
-GND*                         : AC14      :        :                   :         : 8         :                
+GND*                         : AC13      :        :                   :         : 8         :                
+iSW[14]                      : AC14      : input  : 3.3-V LVTTL       :         : 8         : N              
 GND+                         : AC15      :        :                   :         : 7         :                
 oSRAM_A[14]                  : AC16      : output : 3.3-V LVTTL       :         : 7         : Y              
-GND*                         : AC17      :        :                   :         : 7         :                
+hex_trash_i[42]              : AC17      : output : 3.3-V LVTTL       :         : 7         : Y              
 oSRAM_ADSP_N                 : AC18      : output : 3.3-V LVTTL       :         : 7         : Y              
-GND*                         : AC19      :        :                   :         : 7         :                
+hex_trash_i[41]              : AC19      : output : 3.3-V LVTTL       :         : 7         : Y              
 oSRAM_BE_N[1]                : AC20      : output : 3.3-V LVTTL       :         : 7         : Y              
 oSRAM_BE_N[0]                : AC21      : output : 3.3-V LVTTL       :         : 7         : Y              
 VCCA_PLL4                    : AC22      : power  :                   : 1.2V    :           :                
@@ -194,7 +194,7 @@ GND*                         : AD5       :        :                   :         
 oDRAM0_CLK                   : AD6       : output : 3.3-V LVTTL       :         : 1         : Y              
 oSRAM_CLK                    : AD7       : output : 3.3-V LVTTL       :         : 1         : Y              
 GND*                         : AD8       :        :                   :         : 8         :                
-iSW[8]                       : AD9       : input  : 3.3-V LVTTL       :         : 8         : N              
+iSW[9]                       : AD9       : input  : 3.3-V LVTTL       :         : 8         : N              
 bpm_ss1_o[3]                 : AD10      : output : 3.3-V LVTTL       :         : 8         : Y              
 bpm_ss1_o[5]                 : AD11      : output : 3.3-V LVTTL       :         : 8         : Y              
 bpm_ss1_o[6]                 : AD12      : output : 3.3-V LVTTL       :         : 8         : Y              
@@ -204,7 +204,7 @@ iCLK_50                      : AD15      : input  : 3.3-V LVTTL       :         
 oSRAM_ADV_N                  : AD16      : output : 3.3-V LVTTL       :         : 7         : Y              
 bpm_ss2_o[6]                 : AD17      : output : 3.3-V LVTTL       :         : 7         : Y              
 oSRAM_OE_N                   : AD18      : output : 3.3-V LVTTL       :         : 7         : Y              
-GND*                         : AD19      :        :                   :         : 7         :                
+iSW[8]                       : AD19      : input  : 3.3-V LVTTL       :         : 7         : N              
 oSRAM_BE_N[2]                : AD20      : output : 3.3-V LVTTL       :         : 7         : Y              
 oFLASH_A[18]                 : AD21      : output : 3.3-V LVTTL       :         : 7         : Y              
 oSRAM_CE3_N                  : AD22      : output : 3.3-V LVTTL       :         : 7         : Y              
@@ -212,7 +212,7 @@ GNDA_PLL4                    : AD23      : gnd    :                   :         
 GND*                         : AD24      :        :                   :         : 6         :                
 GND*                         : AD25      :        :                   :         : 6         :                
 GND*                         : AD26      :        :                   :         : 6         :                
-GND*                         : AD27      :        :                   :         : 6         :                
+iSW[2]                       : AD27      : input  : 3.3-V LVTTL       :         : 6         : N              
 GND*                         : AD28      :        :                   :         : 6         :                
 FLASH_DQ[10]                 : AD29      : bidir  : 3.3-V LVTTL       :         : 6         : Y              
 FLASH_DQ[3]                  : AD30      : bidir  : 3.3-V LVTTL       :         : 6         : Y              
@@ -257,7 +257,7 @@ oSRAM_A[1]                   : AF8       : output : 3.3-V LVTTL       :         
 bpm_ss1_o[1]                 : AF9       : output : 3.3-V LVTTL       :         : 8         : Y              
 bpm_ss1_o[4]                 : AF10      : output : 3.3-V LVTTL       :         : 8         : Y              
 oSRAM_A[18]                  : AF11      : output : 3.3-V LVTTL       :         : 8         : Y              
-GND*                         : AF12      :        :                   :         : 8         :                
+hex_trash_i[43]              : AF12      : output : 3.3-V LVTTL       :         : 8         : Y              
 VCCIO8                       : AF13      : power  :                   : 3.3V    : 8         :                
 oSRAM_A[10]                  : AF14      : output : 3.3-V LVTTL       :         : 8         : Y              
 oSRAM_A[13]                  : AF15      : output : 3.3-V LVTTL       :         : 8         : Y              
@@ -284,7 +284,7 @@ oSRAM_A[5]                   : AG5       : output : 3.3-V LVTTL       :         
 oSRAM_A[4]                   : AG6       : output : 3.3-V LVTTL       :         : 8         : Y              
 oSRAM_A[3]                   : AG7       : output : 3.3-V LVTTL       :         : 8         : Y              
 oSRAM_A[0]                   : AG8       : output : 3.3-V LVTTL       :         : 8         : Y              
-GND*                         : AG9       :        :                   :         : 8         :                
+iSW[15]                      : AG9       : input  : 3.3-V LVTTL       :         : 8         : N              
 GND*                         : AG10      :        :                   :         : 8         :                
 GND                          : AG11      : gnd    :                   :         :           :                
 oSRAM_A[7]                   : AG12      : output : 3.3-V LVTTL       :         : 8         : Y              
@@ -309,7 +309,7 @@ VCCIO6                       : AG30      : power  :                   : 3.3V    
 DRAM_DQ[14]                  : AH1       : bidir  : 3.3-V LVTTL       :         : 1         : Y              
 DRAM_DQ[15]                  : AH2       : bidir  : 3.3-V LVTTL       :         : 1         : Y              
 GND*                         : AH3       :        :                   :         : 8         :                
-iSW[6]                       : AH4       : input  : 3.3-V LVTTL       :         : 8         : N              
+GND*                         : AH4       :        :                   :         : 8         :                
 bpm_ss3_o[2]                 : AH5       : output : 3.3-V LVTTL       :         : 8         : Y              
 GND                          : AH6       : gnd    :                   :         :           :                
 oSRAM_A[2]                   : AH7       : output : 3.3-V LVTTL       :         : 8         : Y              
@@ -338,7 +338,7 @@ oFLASH_WP_N                  : AH29      : output : 3.3-V LVTTL       :         
 iFLASH_RY_N                  : AH30      : input  : 3.3-V LVTTL       :         : 6         : Y              
 GND                          : AJ1       : gnd    :                   :         :           :                
 GND*                         : AJ2       :        :                   :         : 8         :                
-iSW[5]                       : AJ3       : input  : 3.3-V LVTTL       :         : 8         : N              
+hex_trash_i[0]               : AJ3       : output : 3.3-V LVTTL       :         : 8         : N              
 beat_o[0]                    : AJ4       : output : 3.3-V LVTTL       :         : 8         : Y              
 beat_o[1]                    : AJ5       : output : 3.3-V LVTTL       :         : 8         : Y              
 beat_o[3]                    : AJ6       : output : 3.3-V LVTTL       :         : 8         : Y              
@@ -359,7 +359,7 @@ SRAM_DQ[16]                  : AJ20      : bidir  : 3.3-V LVTTL       :         
 SRAM_DQ[18]                  : AJ21      : bidir  : 3.3-V LVTTL       :         : 7         : Y              
 SRAM_DQ[20]                  : AJ22      : bidir  : 3.3-V LVTTL       :         : 7         : Y              
 SRAM_DPA[1]                  : AJ23      : bidir  : 3.3-V LVTTL       :         : 7         : Y              
-iSW[16]                      : AJ24      : input  : 3.3-V LVTTL       :         : 7         : N              
+GND*                         : AJ24      :        :                   :         : 7         :                
 oFLASH_A[13]                 : AJ25      : output : 3.3-V LVTTL       :         : 7         : Y              
 oFLASH_A[11]                 : AJ26      : output : 3.3-V LVTTL       :         : 7         : Y              
 oFLASH_A[9]                  : AJ27      : output : 3.3-V LVTTL       :         : 7         : Y              
@@ -370,7 +370,7 @@ GND                          : AK2       : gnd    :                   :         
 GND*                         : AK3       :        :                   :         : 8         :                
 VCCIO8                       : AK4       : power  :                   : 3.3V    : 8         :                
 beat_o[2]                    : AK5       : output : 3.3-V LVTTL       :         : 8         : Y              
-GND*                         : AK6       :        :                   :         : 8         :                
+iSW[16]                      : AK6       : input  : 3.3-V LVTTL       :         : 8         : N              
 SRAM_DQ[29]                  : AK7       : bidir  : 3.3-V LVTTL       :         : 8         : Y              
 SRAM_DQ[31]                  : AK8       : bidir  : 3.3-V LVTTL       :         : 8         : Y              
 SRAM_DPA[0]                  : AK9       : bidir  : 3.3-V LVTTL       :         : 8         : Y              
@@ -485,9 +485,9 @@ GPIO_0[5]                    : D28       : bidir  : 3.3-V LVTTL       :         
 GPIO_0[3]                    : D29       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 VCCIO5                       : D30       : power  :                   : 3.3V    : 5         :                
 GND*                         : E1        :        :                   :         : 2         :                
-GND*                         : E2        :        :                   :         : 2         :                
+iSW[1]                       : E2        : input  : 3.3-V LVTTL       :         : 2         : N              
 GND*                         : E3        :        :                   :         : 2         :                
-GND*                         : E4        :        :                   :         : 2         :                
+hex_trash_i[10]              : E4        : output : 3.3-V LVTTL       :         : 2         : Y              
 GND                          : E5        : gnd    :                   :         :           :                
 VCCIO3                       : E6        : power  :                   : 3.3V    : 3         :                
 OTG_D[11]                    : E7        : bidir  : 3.3-V LVTTL       :         : 3         : Y              
@@ -516,8 +516,8 @@ GPIO_0[6]                    : E29       : bidir  : 3.3-V LVTTL       :         
 GPIO_0[8]                    : E30       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GND*                         : F1        :        :                   :         : 2         :                
 GND*                         : F2        :        :                   :         : 2         :                
-GND*                         : F3        :        :                   :         : 2         :                
-GND*                         : F4        :        :                   :         : 2         :                
+iSW[6]                       : F3        : input  : 3.3-V LVTTL       :         : 2         : N              
+hex_trash_i[11]              : F4        : output : 3.3-V LVTTL       :         : 2         : Y              
 VCCIO2                       : F5        : power  :                   : 3.3V    : 2         :                
 GND                          : F6        : gnd    :                   :         :           :                
 OTG_FSPEED                   : F7        : bidir  : 3.3-V LVTTL       :         : 3         : Y              
@@ -540,14 +540,14 @@ iUART_RTS                    : F23       : input  : 3.3-V LVTTL       :         
 PS2_KBCLK                    : F24       : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 GND                          : F25       : gnd    :                   :         :           :                
 VCCIO5                       : F26       : power  :                   : 3.3V    : 5         :                
-GND*                         : F27       :        :                   :         : 5         :                
+iSW[3]                       : F27       : input  : 3.3-V LVTTL       :         : 5         : N              
 GND*                         : F28       :        :                   :         : 5         :                
 GPIO_0[10]                   : F29       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GPIO_0[12]                   : F30       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
-iSW[4]                       : G1        : input  : 3.3-V LVTTL       :         : 2         : N              
-GND*                         : G2        :        :                   :         : 2         :                
+hex_trash_i[2]               : G1        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[1]               : G2        : output : 3.3-V LVTTL       :         : 2         : Y              
 GND*                         : G3        :        :                   :         : 2         :                
-GND*                         : G4        :        :                   :         : 2         :                
+hex_trash_i[12]              : G4        : output : 3.3-V LVTTL       :         : 2         : Y              
 oDRAM1_CLK                   : G5        : output : 3.3-V LVTTL       :         : 2         : Y              
 GND*                         : G6        :        :                   :         : 2         :                
 ~ASDO~ / RESERVED_INPUT_WITH_WEAK_PULLUP : G7        : input  : 3.3-V LVTTL       :         : 2         : N              
@@ -557,7 +557,7 @@ OTG_D[15]                    : G10       : bidir  : 3.3-V LVTTL       :         
 OTG_D[2]                     : G11       : bidir  : 3.3-V LVTTL       :         : 3         : Y              
 iOTG_DREQ0                   : G12       : input  : 3.3-V LVTTL       :         : 3         : Y              
 OTG_D[7]                     : G13       : bidir  : 3.3-V LVTTL       :         : 3         : Y              
-iSW[3]                       : G14       : input  : 3.3-V LVTTL       :         : 3         : N              
+GND*                         : G14       :        :                   :         : 3         :                
 iTD1_CLK27                   : G15       : input  : 3.3-V LVTTL       :         : 3         : Y              
 GND*                         : G16       :        :                   :         : 4         :                
 GND*                         : G17       :        :                   :         : 4         :                
@@ -574,14 +574,14 @@ GPIO_1[0]                    : G27       : bidir  : 3.3-V LVTTL       :         
 GPIO_1[1]                    : G28       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GPIO_0[11]                   : G29       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GPIO_0[13]                   : G30       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
-GND*                         : H1        :        :                   :         : 2         :                
-GND*                         : H2        :        :                   :         : 2         :                
-GND*                         : H3        :        :                   :         : 2         :                
-GND*                         : H4        :        :                   :         : 2         :                
+hex_trash_i[5]               : H1        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[4]               : H2        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[3]               : H3        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[15]              : H4        : output : 3.3-V LVTTL       :         : 2         : Y              
 GND*                         : H5        :        :                   :         : 2         :                
-GND*                         : H6        :        :                   :         : 2         :                
-GND*                         : H7        :        :                   :         : 2         :                
-GND*                         : H8        :        :                   :         : 2         :                
+hex_trash_i[16]              : H6        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[14]              : H7        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[13]              : H8        : output : 3.3-V LVTTL       :         : 2         : Y              
 VCCA_PLL3                    : H9        : power  :                   : 1.2V    :           :                
 OTG_D[0]                     : H10       : bidir  : 3.3-V LVTTL       :         : 3         : Y              
 GND*                         : H11       :        :                   :         : 3         :                
@@ -589,7 +589,7 @@ OTG_D[5]                     : H12       : bidir  : 3.3-V LVTTL       :         
 OTG_D[6]                     : H13       : bidir  : 3.3-V LVTTL       :         : 3         : Y              
 oOTG_RESET_N                 : H14       : output : 3.3-V LVTTL       :         : 3         : Y              
 iTD2_CLK27                   : H15       : input  : 3.3-V LVTTL       :         : 3         : Y              
-GND*                         : H16       :        :                   :         : 4         :                
+iSW[7]                       : H16       : input  : 3.3-V LVTTL       :         : 4         : N              
 GND*                         : H17       :        :                   :         : 4         :                
 I2C_SDAT                     : H18       : bidir  : 3.3-V LVTTL       :         : 4         : Y              
 oVGA_VS                      : H19       : output : 3.3-V LVTTL       :         : 4         : Y              
@@ -604,8 +604,8 @@ GPIO_1[2]                    : H27       : bidir  : 3.3-V LVTTL       :         
 GPIO_1[4]                    : H28       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GPIO_0[14]                   : H29       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GPIO_0[15]                   : H30       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
-GND*                         : J1        :        :                   :         : 2         :                
-GND*                         : J2        :        :                   :         : 2         :                
+hex_trash_i[7]               : J1        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[6]               : J2        : output : 3.3-V LVTTL       :         : 2         : Y              
 VCCIO2                       : J3        : power  :                   : 3.3V    : 2         :                
 GND                          : J4        : gnd    :                   :         :           :                
 GND*                         : J5        :        :                   :         : 2         :                
@@ -634,12 +634,12 @@ GND                          : J27       : gnd    :                   :         
 VCCIO5                       : J28       : power  :                   : 3.3V    : 5         :                
 GPIO_0[16]                   : J29       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GPIO_0[18]                   : J30       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
-GND*                         : K1        :        :                   :         : 2         :                
-GND*                         : K2        :        :                   :         : 2         :                
-GND*                         : K3        :        :                   :         : 2         :                
-GND*                         : K4        :        :                   :         : 2         :                
-GND*                         : K5        :        :                   :         : 2         :                
-GND*                         : K6        :        :                   :         : 2         :                
+hex_trash_i[20]              : K1        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[9]               : K2        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[8]               : K3        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[19]              : K4        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[17]              : K5        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[18]              : K6        : output : 3.3-V LVTTL       :         : 2         : Y              
 GND*                         : K7        :        :                   :         : 2         :                
 GND*                         : K8        :        :                   :         : 2         :                
 ~nCSO~ / RESERVED_INPUT_WITH_WEAK_PULLUP : K9        : input  : 3.3-V LVTTL       :         : 2         : N              
@@ -664,12 +664,12 @@ GPIO_1[6]                    : K27       : bidir  : 3.3-V LVTTL       :         
 GPIO_1[8]                    : K28       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GPIO_1[10]                   : K29       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GPIO_1[12]                   : K30       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
-GND*                         : L1        :        :                   :         : 2         :                
-GND*                         : L2        :        :                   :         : 2         :                
-iSW[11]                      : L3        : input  : 3.3-V LVTTL       :         : 2         : N              
+hex_trash_i[23]              : L1        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[22]              : L2        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[21]              : L3        : output : 3.3-V LVTTL       :         : 2         : Y              
 GND*                         : L4        :        :                   :         : 2         :                
 GND*                         : L5        :        :                   :         : 2         :                
-GND*                         : L6        :        :                   :         : 2         :                
+hex_trash_i[25]              : L6        : output : 3.3-V LVTTL       :         : 2         : Y              
 GND*                         : L7        :        :                   :         : 2         :                
 iSW[17]                      : L8        : input  : 3.3-V LVTTL       :         : 2         : Y              
 GND*                         : L9        :        :                   :         : 2         :                
@@ -689,19 +689,19 @@ GPIO_0[24]                   : L22       : bidir  : 3.3-V LVTTL       :         
 GND                          : L23       : gnd    :                   :         :           :                
 GPIO_1[3]                    : L24       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GPIO_1[5]                    : L25       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
-GND*                         : L26       :        :                   :         : 5         :                
+iSW[4]                       : L26       : input  : 3.3-V LVTTL       :         : 5         : N              
 GPIO_1[9]                    : L27       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GPIO_1[7]                    : L28       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GPIO_1[14]                   : L29       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GPIO_1[15]                   : L30       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
-GND*                         : M1        :        :                   :         : 2         :                
-GND*                         : M2        :        :                   :         : 2         :                
-GND*                         : M3        :        :                   :         : 2         :                
-GND*                         : M4        :        :                   :         : 2         :                
+hex_trash_i[27]              : M1        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[26]              : M2        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[24]              : M3        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[33]              : M4        : output : 3.3-V LVTTL       :         : 2         : Y              
 GND*                         : M5        :        :                   :         : 2         :                
-GND*                         : M6        :        :                   :         : 2         :                
-GND*                         : M7        :        :                   :         : 2         :                
-GND*                         : M8        :        :                   :         : 2         :                
+hex_trash_i[34]              : M6        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[35]              : M7        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[36]              : M8        : output : 3.3-V LVTTL       :         : 2         : Y              
 oDRAM1_WE_N                  : M9        : output : 3.3-V LVTTL       :         : 2         : Y              
 oDRAM1_LDQM0                 : M10       : output : 3.3-V LVTTL       :         : 2         : Y              
 GND                          : M11       : gnd    :                   :         :           :                
@@ -725,15 +725,15 @@ GND*                         : M28       :        :                   :         
 GPIO_1[20]                   : M29       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GPIO_1[22]                   : M30       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GND                          : N1        : gnd    :                   :         :           :                
-GND*                         : N2        :        :                   :         : 2         :                
-iSW[12]                      : N3        : input  : 3.3-V LVTTL       :         : 2         : N              
-GND*                         : N4        :        :                   :         : 2         :                
+hex_trash_i[29]              : N2        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[28]              : N3        : output : 3.3-V LVTTL       :         : 2         : Y              
+iSW[11]                      : N4        : input  : 3.3-V LVTTL       :         : 2         : N              
 VCCIO2                       : N5        : power  :                   : 3.3V    : 2         :                
 GND                          : N6        : gnd    :                   :         :           :                
-iSW[0]                       : N7        : input  : 3.3-V LVTTL       :         : 2         : N              
+hex_trash_i[37]              : N7        : output : 3.3-V LVTTL       :         : 2         : Y              
 oDRAM1_CAS_N                 : N8        : output : 3.3-V LVTTL       :         : 2         : Y              
 oDRAM1_RAS_N                 : N9        : output : 3.3-V LVTTL       :         : 2         : Y              
-GND*                         : N10       :        :                   :         : 2         :                
+hex_trash_i[38]              : N10       : output : 3.3-V LVTTL       :         : 2         : Y              
 VCCINT                       : N11       : power  :                   : 1.2V    :           :                
 VCCINT                       : N12       : power  :                   : 1.2V    :           :                
 GND                          : N13       : gnd    :                   :         :           :                
@@ -754,12 +754,12 @@ VCCIO5                       : N27       : power  :                   : 3.3V    
 GPIO_1[25]                   : N28       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GPIO_1[27]                   : N29       : bidir  : 3.3-V LVTTL       :         : 5         : Y              
 GND                          : N30       : gnd    :                   :         :           :                
-GND*                         : P1        :        :                   :         : 2         :                
-GND*                         : P2        :        :                   :         : 2         :                
-GND*                         : P3        :        :                   :         : 2         :                
-GND*                         : P4        :        :                   :         : 2         :                
+hex_trash_i[32]              : P1        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[31]              : P2        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[30]              : P3        : output : 3.3-V LVTTL       :         : 2         : Y              
+hex_trash_i[39]              : P4        : output : 3.3-V LVTTL       :         : 2         : Y              
 TCK                          : P5        : input  :                   :         : 2         :                
-GND*                         : P6        :        :                   :         : 2         :                
+hex_trash_i[40]              : P6        : output : 3.3-V LVTTL       :         : 2         : Y              
 GND*                         : P7        :        :                   :         : 2         :                
 TDI                          : P8        : input  :                   :         : 2         :                
 oDRAM1_CS_N                  : P9        : output : 3.3-V LVTTL       :         : 2         : Y              
@@ -867,7 +867,7 @@ VCCINT                       : U20       : power  :                   : 1.2V    
 GND                          : U21       : gnd    :                   :         :           :                
 MSEL0                        : U22       :        :                   :         : 6         :                
 GND*                         : U23       :        :                   :         : 6         :                
-iSW[7]                       : U24       : input  : 3.3-V LVTTL       :         : 6         : N              
+iSW[12]                      : U24       : input  : 3.3-V LVTTL       :         : 6         : N              
 GND*                         : U25       :        :                   :         : 6         :                
 nSTATUS                      : U26       :        :                   :         : 6         :                
 CONF_DONE                    : U27       :        :                   :         : 6         :                
@@ -900,7 +900,7 @@ GND*                         : V23       :        :                   :         
 GND*                         : V24       :        :                   :         : 6         :                
 GND                          : V25       : gnd    :                   :         :           :                
 VCCIO6                       : V26       : power  :                   : 3.3V    : 6         :                
-GND*                         : V27       :        :                   :         : 6         :                
+iSW[13]                      : V27       : input  : 3.3-V LVTTL       :         : 6         : N              
 GND*                         : V28       :        :                   :         : 6         :                
 GND*                         : V29       :        :                   :         : 6         :                
 GND                          : V30       : gnd    :                   :         :           :                
@@ -957,9 +957,9 @@ VCCIO6                       : Y20       : power  :                   : 3.3V    
 GND*                         : Y21       :        :                   :         : 6         :                
 GND*                         : Y22       :        :                   :         : 6         :                
 GND*                         : Y23       :        :                   :         : 6         :                
-iSW[9]                       : Y24       : input  : 3.3-V LVTTL       :         : 6         : N              
+GND*                         : Y24       :        :                   :         : 6         :                
 GND*                         : Y25       :        :                   :         : 6         :                
-iSW[1]                       : Y26       : input  : 3.3-V LVTTL       :         : 6         : N              
+GND*                         : Y26       :        :                   :         : 6         :                
 GND*                         : Y27       :        :                   :         : 6         :                
 FLASH_DQ[7]                  : Y28       : bidir  : 3.3-V LVTTL       :         : 6         : Y              
 oFLASH_BYTE_N                : Y29       : output : 3.3-V LVTTL       :         : 6         : Y              

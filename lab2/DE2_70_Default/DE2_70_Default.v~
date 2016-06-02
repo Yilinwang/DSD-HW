@@ -43,6 +43,7 @@
 module DE2_70_Default
 	(
         ////////////////////    Mine Params     ////////////////////
+		hex_trash_i,
         beat_i,
         inc_i,
         dec_i,
@@ -202,6 +203,7 @@ module DE2_70_Default
 	   
 	);
 
+input [34:0] hex_trash_i,
 input [3:0] beat_i;
 
 input [1:0] inc_i, dec_i; // 0:normal  1:fast
@@ -419,6 +421,7 @@ reg myclk;
 */
 
 initial begin
+	hex_trash_i = 0;
     bpm_o = 10'b0000111100;
     cnt_btn = 0;
     cnt_bpm = 0;
@@ -471,9 +474,9 @@ assign SRAM_DQ 			= 32'hzzzzzzzz;
 always@(posedge iCLK_50)
     begin
         if(0)
-        Cont	<=	0;
+        Cont	=	0;
         else
-        Cont	<=	Cont+1;
+        Cont	=	Cont+1;
     end
 
 //	All inout port turn to tri-state
@@ -610,7 +613,6 @@ flash_default_tester flash1(
 //reg [31:0] freq = 32'd50000000;
 always@(posedge iCLK_50)
 begin
-	/*
     if(~inc_i[0]) begin
         tmp1 = tmp1 + 1;
         if(tmp1 == 1) begin
@@ -621,7 +623,6 @@ begin
     if(inc_i[0]) begin
         tmp1 = 0;
     end
-	*/
 
     if(~dec_i[0]) begin
         tmp2 = tmp2 + 1;

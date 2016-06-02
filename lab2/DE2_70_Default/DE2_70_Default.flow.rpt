@@ -1,5 +1,5 @@
 Flow report for DE2_70_Default
-Thu Jun 02 14:13:06 2016
+Thu Jun 02 16:04:30 2016
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -40,18 +40,18 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Flow Summary                                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Flow Status                        ; Successful - Thu Jun 02 14:12:50 2016           ;
+; Flow Status                        ; Successful - Thu Jun 02 16:04:13 2016           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; DE2_70_Default                                  ;
 ; Top-level Entity Name              ; DE2_70_Default                                  ;
 ; Family                             ; Cyclone II                                      ;
 ; Device                             ; EP2C70F896C6                                    ;
 ; Timing Models                      ; Final                                           ;
-; Total logic elements               ; 6,140 / 68,416 ( 9 % )                          ;
+; Total logic elements               ; 6,145 / 68,416 ( 9 % )                          ;
 ;     Total combinational functions  ; 6,083 / 68,416 ( 9 % )                          ;
 ;     Dedicated logic registers      ; 510 / 68,416 ( < 1 % )                          ;
 ; Total registers                    ; 510                                             ;
-; Total pins                         ; 456 / 622 ( 73 % )                              ;
+; Total pins                         ; 500 / 622 ( 80 % )                              ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 307,200 / 1,152,000 ( 27 % )                    ;
 ; Embedded Multiplier 9-bit elements ; 0 / 300 ( 0 % )                                 ;
@@ -64,7 +64,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 06/02/2016 14:10:50 ;
+; Start date & time ; 06/02/2016 16:01:59 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; DE2_70_Default      ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ applicable agreement for further details.
 +-------------------------------------+--------------------------------------------------------+---------------+-------------+------------+
 ; Assignment Name                     ; Value                                                  ; Default Value ; Entity Name ; Section Id ;
 +-------------------------------------+--------------------------------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID               ; 255271012490202.146484784902800                        ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 255271012490202.146485451901792                        ; --            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                                     ; --            ; --          ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                                      ; --            ; --          ; --         ;
 ; PARTITION_COLOR                     ; 2147039                                                ; --            ; --          ; Top        ;
@@ -93,11 +93,11 @@ applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:20     ; 1.0                     ; 594 MB              ; 00:00:19                           ;
-; Fitter                    ; 00:01:32     ; 1.0                     ; 843 MB              ; 00:01:32                           ;
-; Assembler                 ; 00:00:08     ; 1.0                     ; 495 MB              ; 00:00:07                           ;
-; TimeQuest Timing Analyzer ; 00:00:15     ; 1.0                     ; 611 MB              ; 00:00:15                           ;
-; Total                     ; 00:02:15     ; --                      ; --                  ; 00:02:13                           ;
+; Analysis & Synthesis      ; 00:00:23     ; 1.0                     ; 586 MB              ; 00:00:22                           ;
+; Fitter                    ; 00:01:40     ; 1.0                     ; 843 MB              ; 00:01:38                           ;
+; Assembler                 ; 00:00:07     ; 1.0                     ; 491 MB              ; 00:00:07                           ;
+; TimeQuest Timing Analyzer ; 00:00:16     ; 1.0                     ; 584 MB              ; 00:00:14                           ;
+; Total                     ; 00:02:26     ; --                      ; --                  ; 00:02:21                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

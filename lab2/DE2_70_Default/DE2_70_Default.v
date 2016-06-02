@@ -51,6 +51,7 @@ module DE2_70_Default
     	bpm_ss2_o,
     	bpm_ss3_o,
     	beat_o,
+		hex_trash_i,
 		////////////////////	Clock Input	 	////////////////////	 
 		iCLK_28,						//  28.63636 MHz
 		iCLK_50,						//	50 MHz
@@ -208,6 +209,7 @@ input [1:0] inc_i, dec_i; // 0:normal  1:fast
 
 output [6:0] bpm_ss1_o, bpm_ss2_o, bpm_ss3_o;
 output switch_led_o;
+output reg [43:0] hex_trash_i;
 
 output wire [3:0] beat_o;
 
@@ -419,6 +421,8 @@ reg myclk;
 */
 
 initial begin
+
+	hex_trash_i = 44'hFFFFFFFFFFF;
     bpm_o = 10'b0000111100;
     cnt_btn = 0;
     cnt_bpm = 0;
