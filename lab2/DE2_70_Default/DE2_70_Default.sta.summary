@@ -1,0 +1,357 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow Model Setup 'iCLK_50'
+Slack : -383.008
+TNS   : -16254.041
+
+Type  : Slow Model Setup 'iCLK_28'
+Slack : -3.776
+TNS   : -199.005
+
+Type  : Slow Model Setup 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|flash_writer:f1|delay[5]'
+Slack : -3.672
+TNS   : -86.535
+
+Type  : Slow Model Setup 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|flash_writer:f1|delay[4]'
+Slack : -3.000
+TNS   : -62.817
+
+Type  : Slow Model Setup 'I2C_AV_Config:u3|mI2C_CTRL_CLK'
+Slack : -2.527
+TNS   : -92.406
+
+Type  : Slow Model Setup 'AUDIO_DAC:u4|LRCK_1X'
+Slack : -1.063
+TNS   : -6.378
+
+Type  : Slow Model Setup 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|disp_cnt[24]'
+Slack : -0.659
+TNS   : -2.973
+
+Type  : Slow Model Setup 'AUDIO_DAC:u4|oAUD_BCK'
+Slack : -0.087
+TNS   : -0.174
+
+Type  : Slow Model Setup 'p1|altpll_component|pll|clk[1]'
+Slack : 0.843
+TNS   : 0.000
+
+Type  : Slow Model Setup 'p1|altpll_component|pll|clk[0]'
+Slack : 8.426
+TNS   : 0.000
+
+Type  : Slow Model Setup 'p1|altpll_component|pll|clk[2]'
+Slack : 22.959
+TNS   : 0.000
+
+Type  : Slow Model Hold 'iCLK_50'
+Slack : -2.659
+TNS   : -2.659
+
+Type  : Slow Model Hold 'iCLK_28'
+Slack : -2.595
+TNS   : -48.642
+
+Type  : Slow Model Hold 'p1|altpll_component|pll|clk[1]'
+Slack : -1.068
+TNS   : -2.136
+
+Type  : Slow Model Hold 'AUDIO_DAC:u4|oAUD_BCK'
+Slack : 0.391
+TNS   : 0.000
+
+Type  : Slow Model Hold 'I2C_AV_Config:u3|mI2C_CTRL_CLK'
+Slack : 0.391
+TNS   : 0.000
+
+Type  : Slow Model Hold 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|disp_cnt[24]'
+Slack : 0.391
+TNS   : 0.000
+
+Type  : Slow Model Hold 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|flash_writer:f1|delay[4]'
+Slack : 0.391
+TNS   : 0.000
+
+Type  : Slow Model Hold 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|flash_writer:f1|delay[5]'
+Slack : 0.391
+TNS   : 0.000
+
+Type  : Slow Model Hold 'p1|altpll_component|pll|clk[0]'
+Slack : 0.391
+TNS   : 0.000
+
+Type  : Slow Model Hold 'p1|altpll_component|pll|clk[2]'
+Slack : 0.513
+TNS   : 0.000
+
+Type  : Slow Model Hold 'AUDIO_DAC:u4|LRCK_1X'
+Slack : 0.557
+TNS   : 0.000
+
+Type  : Slow Model Recovery 'p1|altpll_component|pll|clk[0]'
+Slack : -3.327
+TNS   : -200.412
+
+Type  : Slow Model Recovery 'p1|altpll_component|pll|clk[2]'
+Slack : -3.327
+TNS   : -26.580
+
+Type  : Slow Model Recovery 'p1|altpll_component|pll|clk[1]'
+Slack : -2.848
+TNS   : -39.872
+
+Type  : Slow Model Recovery 'AUDIO_DAC:u4|LRCK_1X'
+Slack : 0.065
+TNS   : 0.000
+
+Type  : Slow Model Recovery 'AUDIO_DAC:u4|oAUD_BCK'
+Slack : 0.311
+TNS   : 0.000
+
+Type  : Slow Model Removal 'AUDIO_DAC:u4|oAUD_BCK'
+Slack : 0.459
+TNS   : 0.000
+
+Type  : Slow Model Removal 'AUDIO_DAC:u4|LRCK_1X'
+Slack : 0.705
+TNS   : 0.000
+
+Type  : Slow Model Removal 'p1|altpll_component|pll|clk[1]'
+Slack : 2.623
+TNS   : 0.000
+
+Type  : Slow Model Removal 'p1|altpll_component|pll|clk[0]'
+Slack : 2.810
+TNS   : 0.000
+
+Type  : Slow Model Removal 'p1|altpll_component|pll|clk[2]'
+Slack : 3.089
+TNS   : 0.000
+
+Type  : Slow Model Minimum Pulse Width 'iCLK_50'
+Slack : -1.380
+TNS   : -180.380
+
+Type  : Slow Model Minimum Pulse Width 'iCLK_28'
+Slack : -1.380
+TNS   : -85.380
+
+Type  : Slow Model Minimum Pulse Width 'I2C_AV_Config:u3|mI2C_CTRL_CLK'
+Slack : -0.500
+TNS   : -56.000
+
+Type  : Slow Model Minimum Pulse Width 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|flash_writer:f1|delay[5]'
+Slack : -0.500
+TNS   : -28.000
+
+Type  : Slow Model Minimum Pulse Width 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|flash_writer:f1|delay[4]'
+Slack : -0.500
+TNS   : -23.000
+
+Type  : Slow Model Minimum Pulse Width 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|disp_cnt[24]'
+Slack : -0.500
+TNS   : -7.000
+
+Type  : Slow Model Minimum Pulse Width 'AUDIO_DAC:u4|LRCK_1X'
+Slack : -0.500
+TNS   : -6.000
+
+Type  : Slow Model Minimum Pulse Width 'AUDIO_DAC:u4|oAUD_BCK'
+Slack : -0.500
+TNS   : -4.000
+
+Type  : Slow Model Minimum Pulse Width 'p1|altpll_component|pll|clk[2]'
+Slack : 17.714
+TNS   : 0.000
+
+Type  : Slow Model Minimum Pulse Width 'iTD1_CLK27'
+Slack : 18.518
+TNS   : 0.000
+
+Type  : Slow Model Minimum Pulse Width 'p1|altpll_component|pll|clk[0]'
+Slack : 18.841
+TNS   : 0.000
+
+Type  : Slow Model Minimum Pulse Width 'p1|altpll_component|pll|clk[1]'
+Slack : 26.777
+TNS   : 0.000
+
+Type  : Fast Model Setup 'iCLK_50'
+Slack : -171.333
+TNS   : -7234.406
+
+Type  : Fast Model Setup 'iCLK_28'
+Slack : -1.248
+TNS   : -53.305
+
+Type  : Fast Model Setup 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|flash_writer:f1|delay[5]'
+Slack : -1.161
+TNS   : -25.161
+
+Type  : Fast Model Setup 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|flash_writer:f1|delay[4]'
+Slack : -0.904
+TNS   : -17.938
+
+Type  : Fast Model Setup 'I2C_AV_Config:u3|mI2C_CTRL_CLK'
+Slack : -0.548
+TNS   : -14.935
+
+Type  : Fast Model Setup 'AUDIO_DAC:u4|LRCK_1X'
+Slack : 0.000
+TNS   : 0.000
+
+Type  : Fast Model Setup 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|disp_cnt[24]'
+Slack : 0.253
+TNS   : 0.000
+
+Type  : Fast Model Setup 'AUDIO_DAC:u4|oAUD_BCK'
+Slack : 0.497
+TNS   : 0.000
+
+Type  : Fast Model Setup 'p1|altpll_component|pll|clk[1]'
+Slack : 0.605
+TNS   : 0.000
+
+Type  : Fast Model Setup 'p1|altpll_component|pll|clk[0]'
+Slack : 9.208
+TNS   : 0.000
+
+Type  : Fast Model Setup 'p1|altpll_component|pll|clk[2]'
+Slack : 26.420
+TNS   : 0.000
+
+Type  : Fast Model Hold 'iCLK_28'
+Slack : -1.688
+TNS   : -40.671
+
+Type  : Fast Model Hold 'iCLK_50'
+Slack : -1.650
+TNS   : -1.650
+
+Type  : Fast Model Hold 'p1|altpll_component|pll|clk[1]'
+Slack : -0.720
+TNS   : -1.440
+
+Type  : Fast Model Hold 'AUDIO_DAC:u4|oAUD_BCK'
+Slack : 0.215
+TNS   : 0.000
+
+Type  : Fast Model Hold 'I2C_AV_Config:u3|mI2C_CTRL_CLK'
+Slack : 0.215
+TNS   : 0.000
+
+Type  : Fast Model Hold 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|disp_cnt[24]'
+Slack : 0.215
+TNS   : 0.000
+
+Type  : Fast Model Hold 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|flash_writer:f1|delay[4]'
+Slack : 0.215
+TNS   : 0.000
+
+Type  : Fast Model Hold 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|flash_writer:f1|delay[5]'
+Slack : 0.215
+TNS   : 0.000
+
+Type  : Fast Model Hold 'p1|altpll_component|pll|clk[0]'
+Slack : 0.215
+TNS   : 0.000
+
+Type  : Fast Model Hold 'p1|altpll_component|pll|clk[2]'
+Slack : 0.236
+TNS   : 0.000
+
+Type  : Fast Model Hold 'AUDIO_DAC:u4|LRCK_1X'
+Slack : 0.260
+TNS   : 0.000
+
+Type  : Fast Model Recovery 'p1|altpll_component|pll|clk[0]'
+Slack : -1.845
+TNS   : -111.610
+
+Type  : Fast Model Recovery 'p1|altpll_component|pll|clk[2]'
+Slack : -1.845
+TNS   : -14.654
+
+Type  : Fast Model Recovery 'p1|altpll_component|pll|clk[1]'
+Slack : -1.620
+TNS   : -22.680
+
+Type  : Fast Model Recovery 'AUDIO_DAC:u4|LRCK_1X'
+Slack : 0.210
+TNS   : 0.000
+
+Type  : Fast Model Recovery 'AUDIO_DAC:u4|oAUD_BCK'
+Slack : 0.377
+TNS   : 0.000
+
+Type  : Fast Model Removal 'AUDIO_DAC:u4|oAUD_BCK'
+Slack : 0.503
+TNS   : 0.000
+
+Type  : Fast Model Removal 'AUDIO_DAC:u4|LRCK_1X'
+Slack : 0.670
+TNS   : 0.000
+
+Type  : Fast Model Removal 'p1|altpll_component|pll|clk[1]'
+Slack : 1.505
+TNS   : 0.000
+
+Type  : Fast Model Removal 'p1|altpll_component|pll|clk[0]'
+Slack : 1.589
+TNS   : 0.000
+
+Type  : Fast Model Removal 'p1|altpll_component|pll|clk[2]'
+Slack : 1.708
+TNS   : 0.000
+
+Type  : Fast Model Minimum Pulse Width 'iCLK_50'
+Slack : -1.380
+TNS   : -180.380
+
+Type  : Fast Model Minimum Pulse Width 'iCLK_28'
+Slack : -1.380
+TNS   : -85.380
+
+Type  : Fast Model Minimum Pulse Width 'I2C_AV_Config:u3|mI2C_CTRL_CLK'
+Slack : -0.500
+TNS   : -56.000
+
+Type  : Fast Model Minimum Pulse Width 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|flash_writer:f1|delay[5]'
+Slack : -0.500
+TNS   : -28.000
+
+Type  : Fast Model Minimum Pulse Width 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|flash_writer:f1|delay[4]'
+Slack : -0.500
+TNS   : -23.000
+
+Type  : Fast Model Minimum Pulse Width 'flash_default_tester:flash1|DE2_70_flash_word_tester:tester|disp_cnt[24]'
+Slack : -0.500
+TNS   : -7.000
+
+Type  : Fast Model Minimum Pulse Width 'AUDIO_DAC:u4|LRCK_1X'
+Slack : -0.500
+TNS   : -6.000
+
+Type  : Fast Model Minimum Pulse Width 'AUDIO_DAC:u4|oAUD_BCK'
+Slack : -0.500
+TNS   : -4.000
+
+Type  : Fast Model Minimum Pulse Width 'p1|altpll_component|pll|clk[2]'
+Slack : 17.714
+TNS   : 0.000
+
+Type  : Fast Model Minimum Pulse Width 'iTD1_CLK27'
+Slack : 18.518
+TNS   : 0.000
+
+Type  : Fast Model Minimum Pulse Width 'p1|altpll_component|pll|clk[0]'
+Slack : 18.841
+TNS   : 0.000
+
+Type  : Fast Model Minimum Pulse Width 'p1|altpll_component|pll|clk[1]'
+Slack : 26.777
+TNS   : 0.000
+
+------------------------------------------------------------
