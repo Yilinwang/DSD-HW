@@ -5,8 +5,8 @@
 #include <cstdio>
 #include <cmath>
 
-#define MAXN 100000;
-#define MAXS 20;
+#define MAXN 100000
+#define MAXS 20
 
 using namespace std;
 
@@ -44,12 +44,12 @@ int main(int argc, char** argv) {
     for(int i = 0; i < n; i++) {
         
         int this_state_input, next_state, output;
-        fscanf(fp, "%d %d\n", &this_state_input, &next_state, &output);
+        fscanf(fp, "%d %d %d\n", &this_state_input, &next_state, &output);
 
-        tbl_output[this_state_input] = output;
+        tbl_output[this_state_input] = (bool)output;
 
         for(int j = 0; j < num_state; j++) {
-            tbl_state[this_state_input][j] = (next_state & 1 == 1);
+            tbl_state[this_state_input][j] = ((next_state & 1) == 1);
             next_state >>= 1;
         }
     }
