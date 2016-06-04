@@ -1,4 +1,12 @@
-(function() {
+function makeCircuit(){
+	$.get('/makeCircuit',function(data){
+		var arg = data.split('\n');
+		//console.log('in font:'+ arg);
+		doCanvas(arg);
+	});
+}
+
+function doCanvas(arg) {
 	// Obtain a reference to the canvas element using its id.
 	var htmlCanvas = document.getElementById('c'),
 
@@ -19,13 +27,17 @@
 
 	// Display custom canvas.
 	function redraw() {
-		FF(1, 150, 150, 150, 150);
-		FF(2, 150, 450, 150, 150);
-		FF(3, 150, 750, 150, 150);
-		FF(4, 550, 150, 150, 150);
-		NOT(550, 450);
-		OR(550, 600);
-		AND(550, 750);
+		var i;
+		var web_h = $(document).height();
+		var web_w = $(document).width();
+		//arg[1] >= 6 will overlap
+		for(i = 1; i <= arg[1]; i++){
+			FF(arg[2], 150, (i/(parseInt(arg[1])+1))*web_h, 150, 150);
+		}
+
+		//NOT(550, 450);
+		//OR(550, 600);
+		//AND(550, 750);
 	}
 
 	// Runs each time the DOM window resize event fires.
@@ -95,7 +107,9 @@
 		cxt.stroke();
 	}
 
-	function FF(type, x, y, width, height){
+	function FF(type, centerX, centerY, width, height){
+		x = centerX - 0.5*width;
+		y = centerY - 0.5*height;
 		var margin = 10;
 		cxt.font = "24px Consola";
 		cxt.rect(x, y, width, height);
@@ -103,23 +117,40 @@
 			cxt.fillText('D', x+margin, y+0.25*height);
 		else if(type == 2)
 			cxt.fillText('T', x+margin, y+0.25*height);
-		else if(type == 3)
+		else if(type == 3){
 			cxt.fillText('J', x+margin, y+0.25*height);
-		else if(type == 4)
-			cxt.fillText('S', x+margin, y+0.25*height);
+			cxt.fillText('K', x+margin, y+0.85*height);
+			cxt.moveTo(x, y+0.8*height);
+			cxt.lineTo(x-0.4*width, y+0.8*height);
+		}
+		else if(type == 4){
+			cxt.fillText('R', x+margin, y+0.25*height);
+			cxt.fillText('S', x+margin, y+0.85*height);
+			cxt.moveTo(x, y+0.8*height);
+			cxt.lineTo(x-0.4*width, y+0.8*height);
+		}
 
 		cxt.fillText('Q', x+width-3*margin, y+0.25*height);
 		cxt.fillText('FF', x+0.425*width, y+0.55*height);
 		cxt.fillText('—', x+width-3.25*margin, y+0.75*height);
 		cxt.fillText('Q', x+width-3*margin, y+0.85*height);
-		cxt.moveTo(x, y+0.7*height);
-		cxt.lineTo(x+0.2*width, y+0.8*height);
-		cxt.moveTo(x+0.2*width, y+0.8*height);
-		cxt.lineTo(x, y+0.9*height);
+
+		// CLK
+		if(type == 1 || type == 2){
+			cxt.moveTo(x, y+0.7*height);
+			cxt.lineTo(x+0.2*width, y+0.8*height);
+			cxt.moveTo(x+0.2*width, y+0.8*height);
+			cxt.lineTo(x, y+0.9*height);
+		}
+		else{
+			cxt.moveTo(x, y+0.4*height);
+			cxt.lineTo(x+0.2*width, y+0.5*height);
+			cxt.moveTo(x+0.2*width, y+0.5*height);
+			cxt.lineTo(x, y+0.6*height);
+		}
+
 		cxt.moveTo(x, y+0.2*height);
 		cxt.lineTo(x-0.4*width, y+0.2*height);
-		cxt.moveTo(x, y+0.8*height);
-		cxt.lineTo(x-0.4*width, y+0.8*height);
 		cxt.moveTo(x+width, y+0.2*height);
 		cxt.lineTo(x+width+0.4*width, y+0.2*height);
 		cxt.moveTo(x+width, y+0.8*height);
@@ -127,4 +158,5 @@
 		cxt.stroke();
 	}
 
-})();
+};
+
