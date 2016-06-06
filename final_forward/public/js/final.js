@@ -31,7 +31,6 @@ function doCanvas(arg) {
 		//K1=212 
 		//J2=210 
 		//K2=002 110
-		arg[1] = "1";		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		var input_N = parseInt(arg[0]);
 		var FF_N = parseInt(arg[1]);
 		var FF_type = parseInt(arg[2]);
@@ -40,11 +39,21 @@ function doCanvas(arg) {
 		var web_w = $(document).width();
 		var FF_x = web_w-500;
 		leftLine(parseInt(input_N)+parseInt(FF_N));
+		rightLine(FF_N, input_N);
 		//arg[1] >= 6 will overlap
+		link(1, FF_N, input_N+FF_N, arg[6]);
 		for(i = 1; i <= FF_N; i++){
 			FF(FF_type, FF_x, (i/(parseInt(FF_N)+1))*web_h, 150, 150);
+		/*
+			if(FF_type <= 2){
+				link(i, input_N+FF_N, arg[2+i]);
+			}
+			else if(FF_type >= 3){
+				link(i, input_N+FF_N, arg[2*i+1]);
+				link(i, input_N+FF_N, arg[2*i+2]);
+			}
+		*/
 		}
-		rightLine(FF_N);
 
 		//NOT(550, 450);
 		//OR(550, 600);
@@ -59,6 +68,29 @@ function doCanvas(arg) {
 		redraw();
 	}
 
+	function link(FF_i, FF_N, sum, data){
+		//J1=120 211 -> y2 * x' + y1 * x
+		var str = data.split(' ');
+		var i, j;
+		var times = 0;
+		var web_h = $(document).height();
+		var web_w = $(document).width();
+		var FF_x = web_w-500;
+		console.log(FF_y);
+		for(i = 0; i < str.length; i++){
+			var FF_y = (FF_i/(parseInt(FF_N)+1))*web_h;
+			for(j = 0; j < sum; j++){
+				if(parseInt(str[i][j]) != 2){
+					var move_x = (parseInt(str[i][j]) == 1)? 0:1;
+					var move_y = (i == 0)? -30:0;
+					//console.log('FF_i = '+FF_i+' times = '+times+' i = '+i+' j= '+j);
+					line_xxyy(10+10*((sum-j-1)*2+move_x), FF_y+move_y+10*(times), 200, FF_y+10*(times+2*i));
+					times = times + 1;
+				}
+			}
+		}
+	}
+
 	function leftLine(sum){
 		var web_h = $(document).height();
 		var web_w = $(document).width();
@@ -70,7 +102,7 @@ function doCanvas(arg) {
 		}
 	}
 
-	function rightLine(FF_N){
+	function rightLine(FF_N, input_N){
 		var i;
 		var web_h = $(document).height();
 		var web_w = $(document).width();
@@ -87,7 +119,8 @@ function doCanvas(arg) {
 			var y = origin_y-0.3*height;
 			line_len(x, y, (i-1)*unit, 0);
 			line_xxyy(x+(i-1)*unit, y, x+(i-1)*unit, 30+(FF_N-i)*0.5*unit);
-			line_xxyy(x+(i-1)*unit, 30+(FF_N-i)*0.5*unit, 0, 30+(FF_N-i)*0.5*unit);
+			line_xxyy(x+(i-1)*unit, 30+(FF_N-i)*0.5*unit, 10+10*(2*input_N+2*(FF_N-i)), 30+(FF_N-i)*0.5*unit);
+			line_xxyy(10+10*(2*input_N+2*(FF_N-i)), 30+(FF_N-i)*0.5*unit, 10+10*(2*input_N+2*(FF_N-i)), 90);
 		}
 
 	}
