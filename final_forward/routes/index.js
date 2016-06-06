@@ -14,14 +14,7 @@ router.get('/makeCircuit', function(req, res){
 		if (error) {
 			throw error;
 		}
-		console.log(stdout);
-
-		//read output file
-		fs.readFile('output_forwardAlg.txt', 'utf8', (err, data) => {
-			if (err) throw err;
-			res.end(data);
-		});
-
+		res.end(stdout);
 	});
 });
 

@@ -8,7 +8,7 @@ int main(){
 	int input_N = 1;
 	int FF_N = 2;
 	int FF_type = 3;
-	char str[N][N] = {"102 210\n", "212\n", "210\n", "002 110\n"};
+	char str[N][N] = {"102 210", "212", "210", "002 110"};
 	//#input = 1
 	//#FF = 2
 	//type of FF-> 1:D 2:T 3:JK 4:SR
@@ -24,4 +24,5 @@ int main(){
 		fwrite(str[i], strlen(str[i]), 1, fp);
 	}
 	fclose(fp);
+	printf("%d\n%d\n%d\n%s\n%s\n%s\n", input_N, FF_N, FF_type, str[0], str[1], str[2]);
 }
