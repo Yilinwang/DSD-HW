@@ -22,6 +22,7 @@ space = OR
 If #param == 2, i.e ff_type == SR(resp. JK), then the first expression is for S(resp. J), and the second one for R(resp. K).
 
 e.g.
+    
     D
     111 012 101     
     // D = y2y1x + ~y2y1 + y2~y1x (y1, y2 = states, x = input)
