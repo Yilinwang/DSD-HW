@@ -34,6 +34,8 @@ function doCanvas(arg) {
 		var input_N = parseInt(arg[0]);
 		var FF_N = parseInt(arg[1]);
 		var FF_type = parseInt(arg[2]);
+		FF_N = 2
+		input_N = 1;
 		var i;
 		var web_h = $(document).height();
 		var web_w = $(document).width();
@@ -41,18 +43,15 @@ function doCanvas(arg) {
 		leftLine(input_N, input_N+FF_N);
 		rightLine(FF_N, input_N);
 		//arg[1] >= 6 will overlap
-		link(1, FF_N, input_N+FF_N, arg[6]);
 		for(i = 1; i <= FF_N; i++){
 			FF(FF_type, FF_x, (i/(parseInt(FF_N)+1))*web_h, 150, 150);
-		/*
 			if(FF_type <= 2){
-				link(i, input_N+FF_N, arg[2+i]);
+				link(i, -1, FF_N, input_N+FF_N, arg[2+i]);
 			}
 			else if(FF_type >= 3){
-				link(i, input_N+FF_N, arg[2*i+1]);
-				link(i, input_N+FF_N, arg[2*i+2]);
+				link(i, -1, FF_N, input_N+FF_N, arg[2*i+1]);
+				link(i, 1, FF_N, input_N+FF_N, arg[2*i+2]);
 			}
-		*/
 		}
 
 	}
@@ -65,7 +64,7 @@ function doCanvas(arg) {
 		redraw();
 	}
 
-	function link(FF_i, FF_N, sum, data){
+	function link(FF_i, u_d, FF_N, sum, data){
 		//J1=120 211 -> y2 * x' + y1 * x
 		var str = data.split(' ');
 		var i, j;
@@ -74,21 +73,29 @@ function doCanvas(arg) {
 		var FF_x = web_w-500;
 		var FF_y = (FF_i/(parseInt(FF_N)+1))*web_h;
 		var and_w = 50;
-		var and_h = 50;
+		var and_h = 50*(times/2);
 		var hh = [];
+		var and_x;
 		for(i = 0; i < str.length; i++){
 			var times = 0;
-			var move_y = (i == 0)? -100:-40;
+			var move_y;
+			if(u_d == -1){
+				move_y = (i == 0)? -110:-40;
+				and_x = 300;
+			}else if(u_d == 1){
+				move_y = (i == 0)? 40:110;
+				and_x = 650;
+			}
 			for(j = 0; j < sum; j++){
 				if(parseInt(str[i][j]) != 2){
 					var move_x = (parseInt(str[i][j]) == 1)? 0:1;
 					var unit_l = 20;
-					//console.log('FF_i = '+FF_i+' times = '+times+' i = '+i+' j= '+j);
-					line_xxyy(10+unit_l*((sum-j-1)*2+move_x), FF_y+move_y+unit_l*(times), 200, FF_y+move_y+unit_l*(times));
+					line_xxyy(10+unit_l*((sum-j-1)*2+move_x), FF_y+move_y+unit_l*(times), and_x, FF_y+move_y+unit_l*(times));
 					times = times + 1;
 				}
 			}
-			AND(200, FF_y+move_y+unit_l*(times-1)/2-and_h/2, and_w, and_h)
+			and_h = 40*(times/2);
+			AND(and_x, FF_y+move_y+unit_l*(times-1)/2-and_h/2, and_w, and_h);
 			hh.push(FF_y+move_y+unit_l*(times-1)/2);
 		}
 		var avg = 0;
@@ -97,8 +104,12 @@ function doCanvas(arg) {
 		}
 		avg = avg / hh.length;
 		var or_w = 80;
-		var or_h = 120;
-		OR(200+2*and_w+0.5*and_h, avg-or_h/2, or_w, or_h);
+		var or_h = 150*str.length/3;
+		var FF_w = 150;
+		var FF_h = 150;
+		OR(and_x+and_w+150, avg-or_h/2, or_w, or_h);
+		line_xxyy(and_x+and_w+150+or_w+0.5*or_h, avg, FF_x-0.9*FF_w, avg);
+		line_xxyy(FF_x-0.9*FF_w, avg, FF_x-0.9*FF_w, FF_y+u_d*0.3*FF_h);
 	}
 
 	function leftLine(input_N, sum){
@@ -108,16 +119,16 @@ function doCanvas(arg) {
 		var unit = 20;
 		var i;
 		for(i = 1; i <= 2*sum; i++){
-			if(i <= input_N){
+			if(i <= 2*input_N && i % 2 == 1){
 				cxt.font = "18px Consola";
-				cxt.fillText('X'+i, input_x+(i-1)*unit-10, 40);
-				line_len(input_x+(i-1)*unit, 90-40, 0, 800+40);
+				cxt.fillText('X'+(i+1)/2, input_x+(i-1)*unit-10, 40);
+				line_len(input_x+(i-1)*unit, 120-40, 0, 800+40);
 			}
 			else{
-				line_len(input_x+(i-1)*unit, 90, 0, 800);
+				line_len(input_x+(i-1)*unit, 120, 0, 800);
 			}
 			if(i % 2 == 1){
-				NOT(input_x+(i-1)*unit, 90-5*2.732, 21);
+				NOT(input_x+(i-1)*unit, 120-5*2.732, 21);
 			}
 		}
 	}
@@ -141,7 +152,7 @@ function doCanvas(arg) {
 			line_len(x, y, (i-1)*unit_r, 0);
 			line_xxyy(x+(i-1)*unit_r, y, x+(i-1)*unit_r, 30+(FF_N-i)*0.5*unit_r);
 			line_xxyy(x+(i-1)*unit_r, 30+(FF_N-i)*0.5*unit_r, 10+unit_l*(2*input_N+2*(FF_N-i)), 30+(FF_N-i)*0.5*unit_r);
-			line_xxyy(10+unit_l*(2*input_N+2*(FF_N-i)), 30+(FF_N-i)*0.5*unit_r, 10+unit_l*(2*input_N+2*(FF_N-i)), 90);
+			line_xxyy(10+unit_l*(2*input_N+2*(FF_N-i)), 30+(FF_N-i)*0.5*unit_r, 10+unit_l*(2*input_N+2*(FF_N-i)), 120);
 		}
 
 	}
@@ -171,14 +182,12 @@ function doCanvas(arg) {
 		else if(type == 3){
 			cxt.fillText('J', x+margin, y+0.25*height);
 			cxt.fillText('K', x+margin, y+0.85*height);
-			cxt.moveTo(x, y+0.8*height);
-			cxt.lineTo(x-0.4*width, y+0.8*height);
+			line_len(x-0.4*width, y+0.8*height, 0.4*width, 0);
 		}
 		else if(type == 4){
 			cxt.fillText('R', x+margin, y+0.25*height);
 			cxt.fillText('S', x+margin, y+0.85*height);
-			cxt.moveTo(x, y+0.8*height);
-			cxt.lineTo(x-0.4*width, y+0.8*height);
+			line_len(x-0.4*width, y+0.8*height, 0.4*width, 0);
 		}
 
 		cxt.fillText('Q', x+width-3*margin, y+0.25*height);
@@ -218,7 +227,7 @@ function doCanvas(arg) {
 		cxt.arc(x+width, y+0.5*height, 0.5*height, 1.5*Math.PI, 0.5*Math.PI);
 		line_len(x, y+height, width, 0);
 		line_len(x, y, 0, height);
-		line_len(x+width+0.5*height, y+0.5*height, 1.5*width, 0);
+		line_len(x+width+0.5*height, y+0.5*height, 150-0.5*height, 0);
 		cxt.stroke();
 	}
 
