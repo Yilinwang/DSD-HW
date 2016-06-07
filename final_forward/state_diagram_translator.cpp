@@ -18,6 +18,19 @@ int excitation_JK[2][4] = {{0, 1, d, d}, {d, d, 1, 0}};
 int excitation_D[4] = {0, 1, 0, 1};
 int excitation_T[4] = {0, 0, 1, 1};
 
+/* data structure for Quine_McCluskey, implemented by Stefan Moebius. */
+int prim[MAX];
+int prim_mask[MAX];
+int prim_required[MAX] = {0};
+int prim_cnt;
+int terms_dont_care[MAX] = {0};
+
+int terms_out[MAX][MAX];
+int num_terms_out = 0;
+
+int num_terms_ff = 0;
+int terms_ff[MAX][MAX];
+
 int getFFId(string s) {
     if(s == "SR")
         return SR;
@@ -69,44 +82,39 @@ void printTerms(int* prim, int* prim_mask, int* prim_required, int prim_cnt, int
 }
 
 
-int main(int argc, char** argv) {
+int main() {
     /* read inputs. */
+
     int N;
 
     int num_input;
     int num_state;
 
-    char ff_type_c[3];
+    cin >> num_state >> num_input;
 
-    scanf("%d %d %s\n", &num_input, &num_state, ff_type_c);
+    string ff_type_s;
+    int ff_types[MAXVARS];
 
-    string ff_type_s = string(ff_type_c);
-    int ff_type = getFFId(ff_type_s);
-
+    for(int i = 0; i < num_state; i++) {
+        cin >> ff_type_s;
+        ff_types[i] = getFFId(ff_type_s);
+    }
+    
     N = (1 << (num_input + num_state));
 
-    int state_transition[MAX];
-    
-    /* data structure for Quine_McCluskey, implemented by Stefan Moebius. */
-    int prim[MAX];
-    int prim_mask[MAX];
-    int prim_required[MAX] = {0};
-    int prim_cnt;
-    int terms_dont_care[MAX] = {0};
-    
-    int terms_out[MAX][MAX];
-    int num_terms_out = 0;
+    int state_transition[MAX]; 
 
     for(int i = 0; i < N; i++) {
         int this_state_input, next_state, output;
-        scanf("%d%d%d", &this_state_input, &next_state, &output);
+        cin >> this_state_input >> next_state >> output;
 
         if(output) {
             terms_out[num_terms_out++][0] = i;
         }
-
         state_transition[this_state_input] = next_state;
     }
+
+    cout << num_state << " " << num_input << endl;
     
     /* simplified the output expression. */
     Quine_McCluskey(num_state + num_input, num_terms_out, (int**)terms_out, terms_dont_care, prim, prim_mask, prim_required, prim_cnt);
@@ -115,19 +123,18 @@ int main(int argc, char** argv) {
     printTerms(prim, prim_mask, prim_required, prim_cnt, num_state + num_input);
     cout << endl;
 
-    int num_terms_ff = 0;
-    int terms_ff[MAX][MAX];
 
+    /* TODO: Modified this part. Enable different states can be implemented by different FFs. */
     /* deal with the state expression. */
     for(int s = 0; s < num_state; s++) {
-        for(int param = 0; param < (ff_type == SR || ff_type == JK) ? 2 : 1; param++) {
+        for(int param = 0; param < (ff_types[s] == SR || ff_types[s] == JK) ? 2 : 1; param++) {
             for(int i = 0; i < N; i++) {
                 bool now = ((i & (1 << (s + num_input))) != 0);
                 bool next = ((state_transition[i] & (1 << s)) != 0);
 
                 int transition = (now ? 2 : 0) + (next ? 1 : 0);
 
-                int e = excitation(ff_type, transition, param);
+                int e = excitation(ff_types[s], transition, param);
                 
                 if(e != 0)
                     terms_ff[num_terms_ff++][0] = i;
@@ -135,12 +142,15 @@ int main(int argc, char** argv) {
                 if(e == d)
                     terms_dont_care[i] = TRUE;
             }
+            num_terms_ff = 0;
+            memset(terms_dont_care, FALSE, MAX * sizeof(int));
+            
             /* simplified the state expression. */
             Quine_McCluskey(num_state + num_input, num_terms_ff, (int**)terms_ff, terms_dont_care, prim, prim_mask, prim_required, prim_cnt);
             
             /* print state terms. */
             printTerms(prim, prim_mask, prim_required, prim_cnt, num_state + num_input);
-            if(!(s == num_state - 1 && param == ((ff_type == SR || ff_type == JK) ? 1 : 0)))
+            if(!(s == num_state - 1 && param == ((ff_types[s] == SR || ff_types[s] == JK) ? 1 : 0)))
                 cout << endl;
         }
     }
