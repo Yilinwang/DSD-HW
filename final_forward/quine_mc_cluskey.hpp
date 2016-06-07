@@ -6,4 +6,4 @@
 int popCount(unsigned);
 int hammingWeight(int, int);
 int contains(int, int, int, int);
-void Quine_McCluskey(int, int, int**, int*, int*, int*, int&);
+void Quine_McCluskey(int, int, int**, int*, int*, int*, int*, int&);

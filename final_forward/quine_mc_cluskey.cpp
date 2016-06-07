@@ -22,8 +22,6 @@
 #include <stdlib.h>
 #include "quine_mc_cluskey.hpp"
 
-using namespace std;
-
 /*
 #define TRUE 1
 #define FALSE 0
@@ -36,7 +34,7 @@ using namespace std;
 int mask[MAX][MAX];		// mask of minterm  /  Maske des Minterm
 int used[MAX][MAX];		// minterm used  /  Minterm wurde verwendet
 int result[MAX];		// results  /  Ergebnisse
-//int primmask[MAX];		// mask for prime implicants  /  Maske für Primimplikant
+//int prim_mask[MAX];		// mask for prime implicants  /  Maske für Primimplikant
 //int prim[MAX];			// prime implicant  /  Primimplikant
 int wprim[MAX];			// essential prime implicant (TRUE/FALSE)  /  wesentlicher Primimplikant (TRUE/FALSE)
 int nwprim[MAX];		// needed not essential prime implicant  /  benötigter unwesentlicher Primimplikant
@@ -101,7 +99,7 @@ int contains(int value, int mask, int part, int partmask) {
 	return FALSE;
 }
 
-void Quine_McCluskey(int num_variables, int num_minterms, int** minterm, int* dont_care, int* prim, int* primmask, int& prim_count) {
+void Quine_McCluskey(int num_variables, int num_minterms, int** minterm, int* dont_care, int* prim, int* prim_mask, int* prim_required, int& prim_count) {
 	int num = 0; // Number of Variables  /  Anzahl Eingänge
 	int pos = 0;
 	int cur = 0;
@@ -120,7 +118,7 @@ void Quine_McCluskey(int num_variables, int num_minterms, int** minterm, int* do
 
 	// Fill all arrays with default values / Alle Arrays mit Standardwert auffüllen
 	for (x = 0; x < MAX; x++) {
-		primmask[x] = 0;
+		prim_mask[x] = 0;
 		prim[x] = 0;
 		wprim[x] = FALSE;
 		nwprim[x] = FALSE;
@@ -209,13 +207,13 @@ void Quine_McCluskey(int num_variables, int num_minterms, int** minterm, int* do
 				//Check if the same prime implicant is already in the list  /  Überprüfen, ob gleicher Primimplikant bereits in der Liste
 				found = FALSE;
 				for ( z=0; z < prim_count; z++) {
-					if (((prim[z] & primmask[z]) == (minterm[x][reduction] & mask[x][reduction])) &&  (primmask[z] == mask[x][reduction]) )					
+					if (((prim[z] & prim_mask[z]) == (minterm[x][reduction] & mask[x][reduction])) &&  (prim_mask[z] == mask[x][reduction]) )					
 						found = TRUE;
 				} 
 				if (found == FALSE) {
 					//outputTerm(minterm[x][reduction], mask[x][reduction], num);
 					//printf("\n");
-					primmask[prim_count] = mask[x][reduction];
+					prim_mask[prim_count] = mask[x][reduction];
 					prim[prim_count] = minterm[x][reduction];
 					prim_count++;
 				}     
@@ -232,9 +230,9 @@ void Quine_McCluskey(int num_variables, int num_minterms, int** minterm, int* do
 		lastprim = 0;   
 		if (mask[y][0]) {
 			for (x=0; x < prim_count; x++ ) { //for all prime implicants  /  alle Primimplikanten durchgehen  
-				if (primmask[x]) {
+				if (prim_mask[x]) {
 					// Check if the minterm contains prime implicant  /  the Überprüfen, ob der Minterm den Primimplikanten beinhaltet
-					if (contains(minterm[y][0], mask[y][0], prim[x], primmask[x])) {					
+					if (contains(minterm[y][0], mask[y][0], prim[x], prim_mask[x])) {					
 						count++;
 						lastprim = x;          
 					}  
@@ -249,14 +247,14 @@ void Quine_McCluskey(int num_variables, int num_minterms, int** minterm, int* do
 
 	// successively testing if it is possible to remove prime implicants from the rest matrix  /  Nacheinander testen, ob es mögich ist, Primimplikaten der Restmatrix zu entfernen
 	for ( z=0; z < prim_count; z++) {
-		if (primmask[z] ) {
-			if ((wprim[z] == FALSE)) { // && (rwprim[z] == TRUE))
+		if (prim_mask[z] ) {
+			if (wprim[z] == FALSE) { // && (rwprim[z] == TRUE))
 				nwprim[z] = FALSE; // mark as "not essential" /  als "nicht benötigt" markiert
 				for ( y=0; y < pos; y++) { // for all possibilities  /  alle Möglichkeiten durchgehen 
 					res = 0;
 					for ( x=0; x < prim_count; x++) {
 						if ( (wprim[x] == TRUE) || (nwprim[x] == TRUE)) {  //essential prime implicant or marked as required  /  wesentlicher Primimplikant oder als benötigt markiert
-							if ((y & primmask[x]) == (prim[x] & primmask[x])) { //All bits must be 1  /  Es müssen alle Bits auf einmal auf 1 sein (da And-Verknüpfung)
+							if ((y & prim_mask[x]) == (prim[x] & prim_mask[x])) { //All bits must be 1  /  Es müssen alle Bits auf einmal auf 1 sein (da And-Verknüpfung)
 								res = 1; 
 								break;
 							}
@@ -275,6 +273,13 @@ void Quine_McCluskey(int num_variables, int num_minterms, int** minterm, int* do
 		}
 	}
 
+    //choose required PIs.
+    for(x = 0; x < prim_count; x++) {
+        prim_required[x] = FALSE;
+        if(wprim[x] == TRUE || ((wprim[x] == FALSE) && (nwprim[x] == TRUE)))
+            prim_required[x] = TRUE;
+    }
+
     
 	// printf("\nResult:\n\n");
 	// Output of essential and required prime implicants / Ausgabe der wesentlichen und restlichen benötigten Primimplikanten:
@@ -284,12 +289,12 @@ void Quine_McCluskey(int num_variables, int num_minterms, int** minterm, int* do
 	for ( x = 0 ; x < prim_count; x++) {
 		if (wprim[x] == TRUE) {
 			if (count > 0) printf("   ");
-			upperTerm(prim[x], primmask[x], num);
+			upperTerm(prim[x], prim_mask[x], num);
 			count++;
 		}
 		else if ((wprim[x] == FALSE) && (nwprim[x] == TRUE)) {
 			if (count > 0) printf("   ");
-			upperTerm(prim[x], primmask[x], num);
+			upperTerm(prim[x], prim_mask[x], num);
 			count++;
 		}
 	}
@@ -298,12 +303,12 @@ void Quine_McCluskey(int num_variables, int num_minterms, int** minterm, int* do
 	for ( x = 0 ; x < prim_count; x++) {
 		if (wprim[x] == TRUE) {
 			if (count > 0) printf(" + ");
-			lowerTerm(primmask[x], num);
+			lowerTerm(prim_mask[x], num);
 			count++;
 		}
 		else if ((wprim[x] == FALSE) && (nwprim[x] == TRUE)) {
 			if (count > 0) printf(" + ");
-			lowerTerm(primmask[x], num);
+			lowerTerm(prim_mask[x], num);
 			count++;
 		}
 	}
