@@ -1,5 +1,5 @@
 # Expression
-----------------------
+
 ### [state+input]
 ----------------------
 state = 010, input = 01 ==> [state+input] = decimal(01001) = 9, [next_state] and [output] are the same as [state+input].
@@ -33,7 +33,7 @@ e.g.
 
 
 # Input Format
-----------------------
+    
     [#state] [#input]
     [ff_type] // for state 1
     ...
@@ -43,7 +43,7 @@ e.g.
     [state+input] [next_state] [output] // 2 ^ (#state + #input)
 
 # Output Format
-----------------------
+
     [#state] [#input]
     [output_expression]
     [ff_type] // for state 1
