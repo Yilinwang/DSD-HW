@@ -1,5 +1,5 @@
 # Expression
-========================
+----------------------
 ### [state+input]
 ----------------------
 state = 010, input = 01 ==> [state+input] = decimal(01001) = 9, [next_state] and [output] are the same as [state+input].
@@ -11,12 +11,16 @@ state = 010, input = 01 ==> [state+input] = decimal(01001) = 9, [next_state] and
 ### [output_expression], [parameter_expression]
 -----------------------
 0 = ~var
-1 = var 
+
+1 = var
+
 2 = no need to AND
+
 space = OR
 
 
 If #param == 2, i.e ff_type == SR(resp. JK), then the first expression is for S(resp. J), and the second one for R(resp. K).
+
 e.g.
     D
     111 012 101     
@@ -29,7 +33,7 @@ e.g.
 
 
 # Input Format
-=======================
+----------------------
     [#state] [#input]
     [ff_type] // for state 1
     ...
@@ -39,7 +43,7 @@ e.g.
     [state+input] [next_state] [output] // 2 ^ (#state + #input)
 
 # Output Format
-======================
+----------------------
     [#state] [#input]
     [output_expression]
     [ff_type] // for state 1
