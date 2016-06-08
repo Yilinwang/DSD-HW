@@ -1,6 +1,6 @@
 CXX=g++
 CXXFLAGS=-std=c++11
-.PHONY: clean remake test_run
+.PHONY: clean remake test1 test2 test3 test4
 
 sdt: sdt.o qm.o
 	$(CXX) $(CXXFLAGS) sdt.o qm.o -o sdt
@@ -13,5 +13,11 @@ clean:
 remake:
 	make clean
 	make
-test_run:
-	./sdt < test.in
+test1:
+	./sdt < test1.in
+test2:
+	./sdt < test2.in
+test3:
+	./sdt < test3.in
+test4:
+	./sdt < test4.in
