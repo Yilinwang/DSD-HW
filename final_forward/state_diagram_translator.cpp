@@ -81,6 +81,11 @@ void printTerms(int* prim, int* prim_mask, int* prim_required, int prim_cnt, int
     }
 }
 
+void printFFType(int ff_type) {
+    string type_strings[] = {"SR", "JK", "D", "T"};
+    cout << type_strings[ff_type] << endl;
+}
+
 
 int main() {
     /* read inputs. */
@@ -128,6 +133,7 @@ int main() {
     /* deal with the state expression. */
     for(int s = num_state - 1; s >= 0; s--) {
         int num_params = ((ff_types[s] == SR || ff_types[s] == JK) ? 2 : 1); 
+        printFFType(ff_types[s]);
         for(int param = 0; param < num_params; param++) {
             num_terms_ff = 0;
             memset(terms_dont_care, FALSE, MAX * sizeof(int));
