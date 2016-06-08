@@ -142,13 +142,11 @@ int main() {
                 if(e != 0)
                     terms_ff[num_terms_ff++][0] = i;
 
-                if(e == d)
+                if(e == d) {
                     terms_dont_care[i] = TRUE;
-
-                //cout << terms_ff[num_terms_ff - 1][0] << " " << terms_dont_care[i] << endl;
-                //cout << "s = " << s << ", param = " << param << ", i = " << i << endl;
+                }
             }
-            
+
             /* simplified the state expression. */
             Quine_McCluskey(num_state + num_input, num_terms_ff, terms_ff, terms_dont_care, prim, prim_mask, prim_required, prim_cnt);
             
