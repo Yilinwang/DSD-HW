@@ -99,7 +99,8 @@ int contains(int value, int mask, int part, int partmask) {
 	return FALSE;
 }
 
-void Quine_McCluskey(int num_variables, int num_minterms, int** minterm, int* dont_care, int* prim, int* prim_mask, int* prim_required, int& prim_count) {
+void Quine_McCluskey(int num_variables, int num_minterms, 
+        int minterm[MAX][MAX], int* dont_care, int* prim, int* prim_mask, int* prim_required, int& prim_count) {
 	int num = 0; // Number of Variables  /  Anzahl Eingänge
 	int pos = 0;
 	int cur = 0;
@@ -146,7 +147,7 @@ void Quine_McCluskey(int num_variables, int num_minterms, int** minterm, int* do
 
 
 	//cur = 0; 
-	for ( x=0; x < num; x++) {
+	for ( x=0; x < num_minterms; x++) {
 		//int value = 0;
 		//outputTerm(x, pos - 1, num);
 		//printf(" = ");
@@ -157,6 +158,7 @@ void Quine_McCluskey(int num_variables, int num_minterms, int** minterm, int* do
 		//}
 		//printf("\n");
 	}
+
 
 	for (reduction = 0; reduction < MAX; reduction++) {
 		cur = 0; 
@@ -224,7 +226,7 @@ void Quine_McCluskey(int num_variables, int num_minterms, int** minterm, int* do
 	//find essential and not essential prime implicants  /  wesentliche und unwesentliche Primimplikanten finden
 	//all alle prime implicants are set to "not essential" so far  /  Primimplikanten sind bisher auf "nicht wesentlich" gesetzt
 	for (y=0; y < pos; y++) { //for all minterms  /  alle Minterme durchgehen 	
-		if(dont_care[y])
+		if(dont_care[minterm[y][0] & mask[y][0]])
             continue;
         count = 0;
 		lastprim = 0;   
@@ -251,6 +253,8 @@ void Quine_McCluskey(int num_variables, int num_minterms, int** minterm, int* do
 			if (wprim[z] == FALSE) { // && (rwprim[z] == TRUE))
 				nwprim[z] = FALSE; // mark as "not essential" /  als "nicht benötigt" markiert
 				for ( y=0; y < pos; y++) { // for all possibilities  /  alle Möglichkeiten durchgehen 
+		            if(dont_care[minterm[y][0] & mask[y][0]])
+                        continue;
 					res = 0;
 					for ( x=0; x < prim_count; x++) {
 						if ( (wprim[x] == TRUE) || (nwprim[x] == TRUE)) {  //essential prime implicant or marked as required  /  wesentlicher Primimplikant oder als benötigt markiert
