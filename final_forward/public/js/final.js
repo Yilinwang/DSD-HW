@@ -9,8 +9,8 @@ function doCanvas(arg) {
 	// Obtain a reference to the canvas element using its id.
 	var htmlCanvas = document.getElementById('c'),
 
-	// Obtain a graphics cxt on the  canvas element for drawing.
-	cxt = htmlCanvas.getContext('2d');
+	// Obtain a graphics ctx on the  canvas element for drawing.
+	ctx = htmlCanvas.getContext('2d');
 
 	// Start listening to resize events and draw canvas.
 	initialize();
@@ -34,17 +34,25 @@ function doCanvas(arg) {
 		var input_N = parseInt(arg[0]);
 		var FF_N = parseInt(arg[1]);
 		var FF_type = parseInt(arg[2]);
-		FF_N = 2
-		input_N = 1;
-		var i;
+		//FF_N = 4; FF_type = 4; input_N = 3;
+
+		//arg[3] = "11111101 111011011"; arg[4] = "11111101 111011011"; arg[5] = "11111101 111011011"; arg[6] = "11111101 111011011"; arg[7] = "11111101 111011011"; arg[8] = "11111101 111011011"; arg[9] = "11111101 111011011"; arg[10] = "11111101 111011011"; arg[11] = "11111101 111011011"; arg[12] = "11111101 111011011";
 		var web_h = $(document).height();
 		var web_w = $(document).width();
 		var FF_x = web_w-500;
+		var i;
+
+		ctx.scale(1/2.8, 1/2.8);
+
+
 		leftLine(input_N, input_N+FF_N);
 		rightLine(FF_N, input_N);
-		//arg[1] >= 6 will overlap
+
 		for(i = 1; i <= FF_N; i++){
-			FF(FF_type, FF_x, (i/(parseInt(FF_N)+1))*web_h, 150, 150);
+			if(FF_N > 1)
+				FF(FF_type, FF_x, 300+((i-1)/(FF_N-1))*(web_h-100), 150, 150);
+			else
+				FF(FF_type, FF_x, web_h/2, 150, 150);
 			if(FF_type <= 2){
 				link(i, -1, FF_N, input_N+FF_N, arg[2+i]);
 			}
@@ -60,7 +68,7 @@ function doCanvas(arg) {
 	// Resets the canvas dimensions to match window, then draws the canvas accordingly.
 	function resizeCanvas() {
 		htmlCanvas.width = window.innerWidth;
-		htmlCanvas.height = window.innerHeight;
+		htmlCanvas.height = 2*window.innerHeight;
 		redraw();
 	}
 
@@ -71,7 +79,7 @@ function doCanvas(arg) {
 		var web_h = $(document).height();
 		var web_w = $(document).width();
 		var FF_x = web_w-500;
-		var FF_y = (FF_i/(parseInt(FF_N)+1))*web_h;
+		var FF_y = (FF_N == 1)? web_h/2 : 300+((FF_i-1)/(FF_N-1))*(web_h-100);
 		var and_w = 50;
 		var and_h = 50*(times/2);
 		var hh = [];
@@ -80,10 +88,10 @@ function doCanvas(arg) {
 			var times = 0;
 			var move_y;
 			if(u_d == -1){
-				move_y = (i == 0)? -110:-40;
+				move_y = (i == 0)? -170:-20;
 				and_x = 300;
 			}else if(u_d == 1){
-				move_y = (i == 0)? 40:110;
+				move_y = (i == 0)? 120:270;
 				and_x = 650;
 			}
 			for(j = 0; j < sum; j++){
@@ -104,7 +112,7 @@ function doCanvas(arg) {
 		}
 		avg = avg / hh.length;
 		var or_w = 80;
-		var or_h = 150*str.length/3;
+		var or_h = 150*str.length/1.5;
 		var FF_w = 150;
 		var FF_h = 150;
 		OR(and_x+and_w+150, avg-or_h/2, or_w, or_h);
@@ -120,12 +128,12 @@ function doCanvas(arg) {
 		var i;
 		for(i = 1; i <= 2*sum; i++){
 			if(i <= 2*input_N && i % 2 == 1){
-				cxt.font = "18px Consola";
-				cxt.fillText('X'+(i+1)/2, input_x+(i-1)*unit-10, 40);
-				line_len(input_x+(i-1)*unit, 120-40, 0, 800+40);
+				ctx.font = "18px Consola";
+				ctx.fillText('X'+(i+1)/2, input_x+(i-1)*unit-10, 40);
+				line_len(input_x+(i-1)*unit, 120-40, 0, 2500+40);
 			}
 			else{
-				line_len(input_x+(i-1)*unit, 120, 0, 800);
+				line_len(input_x+(i-1)*unit, 120, 0, 2500);
 			}
 			if(i % 2 == 1){
 				NOT(input_x+(i-1)*unit, 120-5*2.732, 21);
@@ -144,9 +152,12 @@ function doCanvas(arg) {
 		var unit_r = 30;
 		var unit_l = 20;
 
-		var first_y = (1/(parseInt(FF_N)+1))*web_h;
 		for(i = 1; i <= FF_N; i++){
-			var origin_y = (i/(parseInt(FF_N)+1))*web_h;
+			var origin_y;
+			if(FF_N > 1)
+				origin_y = 300+((i-1)/(FF_N-1))*(web_h-100);
+			else
+				origin_y = web_h/2;
 			var x = FF_x+0.9*width;
 			var y = origin_y-0.3*height;
 			line_len(x, y, (i-1)*unit_r, 0);
@@ -158,47 +169,47 @@ function doCanvas(arg) {
 	}
 
 	function line_len(x, y, width, height){
-		cxt.moveTo(x, y);
-		cxt.lineTo(x+width, y+height);
-		cxt.stroke();
+		ctx.moveTo(x, y);
+		ctx.lineTo(x+width, y+height);
+		ctx.stroke();
 	}
 
 	function line_xxyy(x, y, xx, yy){
-		cxt.moveTo(x, y);
-		cxt.lineTo(xx, yy);
-		cxt.stroke();
+		ctx.moveTo(x, y);
+		ctx.lineTo(xx, yy);
+		ctx.stroke();
 	}
 
 	function FF(type, centerX, centerY, width, height){
 		x = centerX - 0.5*width;
 		y = centerY - 0.5*height;
 		var margin = 10;
-		cxt.font = "24px Consola";
-		cxt.rect(x, y, width, height);
+		ctx.font = "24px Consola";
+		ctx.rect(x, y, width, height);
 		if(type == 1)
-			cxt.fillText('D', x+margin, y+0.25*height);
+			ctx.fillText('D', x+margin, y+0.25*height);
 		else if(type == 2)
-			cxt.fillText('T', x+margin, y+0.25*height);
+			ctx.fillText('T', x+margin, y+0.25*height);
 		else if(type == 3){
-			cxt.fillText('J', x+margin, y+0.25*height);
-			cxt.fillText('K', x+margin, y+0.85*height);
+			ctx.fillText('J', x+margin, y+0.25*height);
+			ctx.fillText('K', x+margin, y+0.85*height);
 			line_len(x-0.4*width, y+0.8*height, 0.4*width, 0);
 		}
 		else if(type == 4){
-			cxt.fillText('R', x+margin, y+0.25*height);
-			cxt.fillText('S', x+margin, y+0.85*height);
+			ctx.fillText('R', x+margin, y+0.25*height);
+			ctx.fillText('S', x+margin, y+0.85*height);
 			line_len(x-0.4*width, y+0.8*height, 0.4*width, 0);
 		}
 
-		cxt.fillText('Q', x+width-3*margin, y+0.25*height);
-		cxt.fillText('FF', x+0.425*width, y+0.55*height);
-		cxt.fillText('—', x+width-3.25*margin, y+0.75*height);
-		cxt.fillText('Q', x+width-3*margin, y+0.85*height);
+		ctx.fillText('Q', x+width-3*margin, y+0.25*height);
+		ctx.fillText('FF', x+0.425*width, y+0.55*height);
+		ctx.fillText('—', x+width-3.25*margin, y+0.75*height);
+		ctx.fillText('Q', x+width-3*margin, y+0.85*height);
 
 		// CLK
 		if(type == 1 || type == 2){
 			line_len(x, y+0.7*height, 0.2*width, 0.1*height);
-			line_len(x+0.2*width, y+0.8*height, -0.2*width, -0.1*height);
+			line_len(x+0.2*width, y+0.8*height, -0.2*width, 0.1*height);
 		}
 		else{
 			line_len(x, y+0.4*height, 0.2*width, 0.1*height);
@@ -216,29 +227,29 @@ function doCanvas(arg) {
 		line_len(x+0.45*unit, y-1.732/4*unit, 0.5*unit, 1.732/2*unit);
 		line_len(x+1.45*unit, y-1.732/4*unit, -0.5*unit, 1.732/2*unit);
 		var radius = unit / 8;
-		cxt.moveTo(x+0.95*unit+radius, y+1.732/4*unit+radius);
-		cxt.arc(x+0.95*unit,y+1.732/4*unit+radius,radius,0,2*Math.PI);
-		cxt.stroke();
+		ctx.moveTo(x+0.95*unit+radius, y+1.732/4*unit+radius);
+		ctx.arc(x+0.95*unit,y+1.732/4*unit+radius,radius,0,2*Math.PI);
+		ctx.stroke();
 	}
 
 	function AND(x, y, width, height){
 		line_len(x, y, width, 0);
-		cxt.moveTo(x+width, y);
-		cxt.arc(x+width, y+0.5*height, 0.5*height, 1.5*Math.PI, 0.5*Math.PI);
+		ctx.moveTo(x+width, y);
+		ctx.arc(x+width, y+0.5*height, 0.5*height, 1.5*Math.PI, 0.5*Math.PI);
 		line_len(x, y+height, width, 0);
 		line_len(x, y, 0, height);
 		line_len(x+width+0.5*height, y+0.5*height, 150-0.5*height, 0);
-		cxt.stroke();
+		ctx.stroke();
 	}
 
 	function OR(x, y, width, height){
 		line_len(x, y, width, 0);
-		cxt.moveTo(x+width, y);
-		cxt.arc(x+width, y+0.5*height, 0.5*height,1.5*Math.PI,0.5*Math.PI);
-		cxt.moveTo(x, y);
-		cxt.quadraticCurveTo(x+width, y+0.5*height, x, y+height);
+		ctx.moveTo(x+width, y);
+		ctx.arc(x+width, y+0.5*height, 0.5*height,1.5*Math.PI,0.5*Math.PI);
+		ctx.moveTo(x, y);
+		ctx.quadraticCurveTo(x+width, y+0.5*height, x, y+height);
 		line_len(x, y+height, width, 0);
-		cxt.stroke();
+		ctx.stroke();
 	}
 
 };
