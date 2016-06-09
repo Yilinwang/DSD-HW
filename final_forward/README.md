@@ -25,12 +25,12 @@ e.g.
     
     D
     111 012 101     
-    // D = y2y1x + ~y2y1 + y2~y1x (y1, y2 = states, x = input)
+    // D = y1y2x + ~y1y2 + y1~y2x (y1, y2 = states, x = input)
 
     SR
     101 022
     021 120
-    // S = y2~y2x + ~y2, R = ~y2x + y2~x
+    // S = y1~y2x + ~y1, R = ~y1x + y1~x
 
 
 # Input Format
