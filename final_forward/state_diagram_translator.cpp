@@ -82,6 +82,11 @@ void printTerms(int* prim, int* prim_mask, int* prim_required, int prim_cnt, int
     }
 }
 
+void printFFType(int ff_type) {
+    string type_strings[] = {"SR", "JK", "D", "T"};
+    cout << type_strings[ff_type] << endl;
+}
+
 
 int main() {
     /* read inputs. */
@@ -129,6 +134,7 @@ int main() {
     /* deal with the state expression. */
     for(int s = num_state - 1; s >= 0; s--) {
         int num_params = ((ff_types[s] == SR || ff_types[s] == JK) ? 2 : 1); 
+        printFFType(ff_types[s]);
         for(int param = 0; param < num_params; param++) {
             num_terms_ff = 0;
             memset(terms_dont_care, FALSE, MAX * sizeof(int));
@@ -143,13 +149,11 @@ int main() {
                 if(e != 0)
                     terms_ff[num_terms_ff++][0] = i;
 
-                if(e == d)
+                if(e == d) {
                     terms_dont_care[i] = TRUE;
-
-                //cout << terms_ff[num_terms_ff - 1][0] << " " << terms_dont_care[i] << endl;
-                //cout << "s = " << s << ", param = " << param << ", i = " << i << endl;
+                }
             }
-            
+
             /* simplified the state expression. */
             Quine_McCluskey(num_state + num_input, num_terms_ff, terms_ff, terms_dont_care, prim, prim_mask, prim_required, prim_cnt);
             

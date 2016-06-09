@@ -153,8 +153,9 @@ void Quine_McCluskey(int num_variables, int num_minterms,
 		//printf(" = ");
 		//scanf(" %d", &value);
 		//if (value) {
-			mask[x][0] = ((1 << num)- 1);   
-			result[minterm[x][0]] = 1;
+			mask[x][0] = ((1 << num)- 1);
+            //if(dont_care[minterm[x][0]] == FALSE)
+			    result[minterm[x][0]] = TRUE;
 		//}
 		//printf("\n");
 	}
@@ -221,12 +222,12 @@ void Quine_McCluskey(int num_variables, int num_minterms,
 				}     
 			} 
 		} 
-	}  
+	} 
 
 	//find essential and not essential prime implicants  /  wesentliche und unwesentliche Primimplikanten finden
 	//all alle prime implicants are set to "not essential" so far  /  Primimplikanten sind bisher auf "nicht wesentlich" gesetzt
-	for (y=0; y < pos; y++) { //for all minterms  /  alle Minterme durchgehen 	
-		if(dont_care[minterm[y][0] & mask[y][0]])
+    for (y=0; y < num_minterms; y++) { //for all minterms  /  alle Minterme durchgehen 	
+        if(dont_care[minterm[y][0] & mask[y][0]])
             continue;
         count = 0;
 		lastprim = 0;   
@@ -242,7 +243,7 @@ void Quine_McCluskey(int num_variables, int num_minterms,
 			}
 			// If count = 1 then it is a essential prime implicant /  Wenn Anzahl = 1, dann wesentlicher Primimplikant
 			if (count == 1) {
-				wprim[lastprim] = TRUE;
+                wprim[lastprim] = TRUE;
 			}
 		}
 	}
@@ -252,20 +253,22 @@ void Quine_McCluskey(int num_variables, int num_minterms,
 		if (prim_mask[z] ) {
 			if (wprim[z] == FALSE) { // && (rwprim[z] == TRUE))
 				nwprim[z] = FALSE; // mark as "not essential" /  als "nicht benötigt" markiert
-				for ( y=0; y < pos; y++) { // for all possibilities  /  alle Möglichkeiten durchgehen 
+				for ( y=0; y < num_minterms; y++) { // for all possibilities  /  alle Möglichkeiten durchgehen 
 		            if(dont_care[minterm[y][0] & mask[y][0]])
                         continue;
 					res = 0;
 					for ( x=0; x < prim_count; x++) {
-						if ( (wprim[x] == TRUE) || (nwprim[x] == TRUE)) {  //essential prime implicant or marked as required  /  wesentlicher Primimplikant oder als benötigt markiert
-							if ((y & prim_mask[x]) == (prim[x] & prim_mask[x])) { //All bits must be 1  /  Es müssen alle Bits auf einmal auf 1 sein (da And-Verknüpfung)
-								res = 1; 
+                        if(!prim_mask[x])
+                            continue;
+                        if ( (wprim[x] == TRUE) || (nwprim[x] == TRUE)) {  //essential prime implicant or marked as required  /  wesentlicher Primimplikant oder als benötigt markiert
+							if ((minterm[y][0] & prim_mask[x]) == (prim[x] & prim_mask[x])) { //All bits must be 1  /  Es müssen alle Bits auf einmal auf 1 sein (da And-Verknüpfung)
+                                res = 1; 
 								break;
 							}
 						}
 					}
 					//printf(" %d\t%d\n", result, result[y]);
-					if (res == result[y]) {  // compare calculated result with input value /  Berechnetes ergebnis mit sollwert vergleichen				
+					if (res == result[minterm[y][0]]) {  // compare calculated result with input value /  Berechnetes ergebnis mit sollwert vergleichen				
 						//printf("not needed\n"); //prime implicant not required  /  Primimplikant wird nicht benötigt
 					}
 					else {
@@ -280,8 +283,9 @@ void Quine_McCluskey(int num_variables, int num_minterms,
     //choose required PIs.
     for(x = 0; x < prim_count; x++) {
         prim_required[x] = FALSE;
-        if(wprim[x] == TRUE || ((wprim[x] == FALSE) && (nwprim[x] == TRUE)))
+        if(wprim[x] == TRUE || (nwprim[x] == TRUE)) {
             prim_required[x] = TRUE;
+        }
     }
 
     
