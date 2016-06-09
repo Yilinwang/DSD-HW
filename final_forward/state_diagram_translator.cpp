@@ -33,9 +33,9 @@ int num_terms_ff = 0;
 int terms_ff[MAX][MAX];
 
 int getFFId(string s) {
-    if(s == "SR")
+    if(s == "S")	//SR
         return SR;
-    if(s == "JK")
+    if(s == "J")	//JK
         return JK;
     if(s == "D")
         return D;
@@ -88,21 +88,22 @@ void printFFType(int ff_type) {
 }
 
 
-int main() {
+int main(int argc, char *argv[]) {
     /* read inputs. */
 
     int N;
 
-    int num_input;
-    int num_state;
+    int num_input = stoi(argv[2]);
+    int num_state = stoi(argv[1]);
 
-    cin >> num_state >> num_input;
+    //cin >> num_state >> num_input;
 
     string ff_type_s;
     int ff_types[MAXVARS];
 
     for(int i = num_state - 1; i >= 0; i--) {
-        cin >> ff_type_s;
+		ff_type_s = argv[3+num_state - 1 - i];
+        //cin >> ff_type_s;
         ff_types[i] = getFFId(ff_type_s);
     }
     
@@ -111,8 +112,12 @@ int main() {
     int state_transition[MAX]; 
 
     for(int i = 0; i < N; i++) {
-        int this_state_input, next_state, output;
-        cin >> this_state_input >> next_state >> output;
+		int start = 3+num_state;
+        int this_state_input = stoi(argv[start+i*3]);
+		int next_state = stoi(argv[start+1+i*3]);
+		int output = stoi(argv[start+2+i*3]);
+
+        //cin >> this_state_input >> next_state >> output;
 
         if(output) {
             terms_out[num_terms_out++][0] = i;
