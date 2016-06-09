@@ -5,15 +5,96 @@ function makeCircuit(){
 	});
 }
 
+function remove(id) {
+	var elem = document.getElementById(id);
+	elem.parentNode.removeChild(elem);
+	return false;
+}
+
+function createInput(){
+	var inputN = $('input[name="inputN"]').val();
+	var stateN = $('input[name="stateN"]').val();
+	createInputType(stateN);
+	createInputTable(stateN, inputN);
+	remove("myfieldset");
+
+}
+
+function createInputType(stateN){
+
+	var i, j;
+
+	for(i = stateN; i > 0; i--){
+		$( "<form>Type of FF for Q"+i+":"+"<input type='radio' name='type' checked> D <input type='radio' name='type'> T <input type='radio' name='type'> JK <input type='radio' name='type'> RS Flip Flop</form>").insertAfter( "#pp" );
+	}
+
+}
+
+function createInputTable(data, data2){
+	var stateN = parseInt(data);
+	var inputN = parseInt(data2);
+	var rowN = Math.pow(stateN+inputN, 2);
+	var table = document.getElementById("myTable");
+	var header = table.createTHead();
+	var row;  
+	var cell;
+	var i, j;
+
+
+	//tbody
+	for(i = 0; i < rowN; i++){
+		//tr
+		bin = i.toString(2);
+		row = table.insertRow(table.rows.length);
+		for(j = 0; j < stateN+inputN; j++){
+			//td
+			cell = row.insertCell(0);		//insert from front
+			cell.innerHTML = (j >= bin.length)? 0 : bin[j];
+		}
+		for(j = 0; j < stateN+1; j++){
+			cell = row.insertCell(table.rows[i].cells.length);		//insert from front
+			cell.innerHTML = "<input type='number' value='0' min='0' max='1'>";
+
+			//document.body.appendChild(p);
+
+		}
+	}
+
+	//thead
+	row = header.insertRow(0);
+	for(j = 1; j <= stateN; j++){
+		cell = row.insertCell(table.rows[0].cells.length);	//insert from back
+		cell.innerHTML = 'Q'+j;
+	}
+	for(j = 1; j <= inputN; j++){
+		cell = row.insertCell(table.rows[0].cells.length);	//insert from back
+		cell.innerHTML = 'X'+j;
+	}
+	for(j = 1; j <= stateN; j++){
+		cell = row.insertCell(table.rows[0].cells.length);	//insert from back
+		cell.innerHTML = 'Q'+j+'+';
+	}
+	cell = row.insertCell(table.rows[0].cells.length);	//insert from back
+	cell.innerHTML = 'Z';
+}
+
 function doCanvas(arg) {
 	// Obtain a reference to the canvas element using its id.
 	var htmlCanvas = document.getElementById('c'),
 
-	// Obtain a graphics ctx on the  canvas element for drawing.
-	ctx = htmlCanvas.getContext('2d');
+		// Obtain a graphics ctx on the  canvas element for drawing.
+		ctx = htmlCanvas.getContext('2d');
+	fitToContainer(htmlCanvas);
 
 	// Start listening to resize events and draw canvas.
 	initialize();
+
+	function fitToContainer(canvas){
+		canvas.style.width='100%';
+		canvas.style.height='100%';
+		canvas.width  = canvas.offsetWidth;
+		canvas.height = canvas.offsetHeight;
+	}
 
 	function initialize() {
 		// Register an event listener to call the resizeCanvas() function each time 
@@ -31,34 +112,58 @@ function doCanvas(arg) {
 		//K1=212 
 		//J2=210 
 		//K2=002 110
-		var input_N = parseInt(arg[0]);
-		var FF_N = parseInt(arg[1]);
-		var FF_type = parseInt(arg[2]);
-		//FF_N = 4; FF_type = 4; input_N = 3;
+		arg = [1, 1, 3, "110 101 111", "111", 4, "210", "200", 1, "000"];
+		var FF_N = parseInt(arg[0]);
+		var input_N = parseInt(arg[1]);
+		var FF_type = [];
+		var i;
+		var tmp = 3;
+		var exp = [];
+		var output_exp = arg[2];
 
-		//arg[3] = "11111101 111011011"; arg[4] = "11111101 111011011"; arg[5] = "11111101 111011011"; arg[6] = "11111101 111011011"; arg[7] = "11111101 111011011"; arg[8] = "11111101 111011011"; arg[9] = "11111101 111011011"; arg[10] = "11111101 111011011"; arg[11] = "11111101 111011011"; arg[12] = "11111101 111011011";
+		for(i = 0; i < FF_N; i++){
+			FF_type.push(parseInt(arg[tmp]));
+			if(parseInt(arg[tmp]) <= 2){
+				exp.push(arg[tmp+1]);
+				tmp += 2;
+			}else{
+				exp.push(arg[tmp+1]);
+				exp.push(arg[tmp+2]);
+				tmp += 3;
+			}
+		}
+
 		var web_h = $(document).height();
 		var web_w = $(document).width();
 		var FF_x = web_w-500;
 		var i;
 
-		ctx.scale(1/2.8, 1/2.8);
-
+		ctx.scale(1/1.8, 1/1.8);
 
 		leftLine(input_N, input_N+FF_N);
 		rightLine(FF_N, input_N);
 
-		for(i = 1; i <= FF_N; i++){
-			if(FF_N > 1)
-				FF(FF_type, FF_x, 300+((i-1)/(FF_N-1))*(web_h-100), 150, 150);
-			else
-				FF(FF_type, FF_x, web_h/2, 150, 150);
-			if(FF_type <= 2){
-				link(i, -1, FF_N, input_N+FF_N, arg[2+i]);
+		var tmp2 = 0;
+		for(i = 0; i < FF_type.length; i++){
+			if(FF_N == 1){
+				FF(FF_type[i], FF_x, web_h, 150, 150);
 			}
-			else if(FF_type >= 3){
-				link(i, -1, FF_N, input_N+FF_N, arg[2*i+1]);
-				link(i, 1, FF_N, input_N+FF_N, arg[2*i+2]);
+			else if(FF_N <= 2){
+				FF(FF_type[i], FF_x, ((i+1)/(FF_N+1))*(web_h*2), 150, 150);
+			}
+			else if(FF_N >= 3){
+				FF(FF_type[i], FF_x, 300+(i/(FF_N-1))*((web_h-100)*1.8), 150, 150);
+			}
+
+			if(FF_type[i] <= 2){
+				link(i+1, -1, FF_N, input_N+FF_N, exp[tmp2]);
+				tmp2++;
+			}
+
+			else if(FF_type[i] >= 3){
+				link(i+1, -1, FF_N, input_N+FF_N, exp[tmp2]);
+				link(i+1, 1, FF_N, input_N+FF_N, exp[tmp2+1]);
+				tmp2 += 2;
 			}
 		}
 
@@ -79,7 +184,16 @@ function doCanvas(arg) {
 		var web_h = $(document).height();
 		var web_w = $(document).width();
 		var FF_x = web_w-500;
-		var FF_y = (FF_N == 1)? web_h/2 : 300+((FF_i-1)/(FF_N-1))*(web_h-100);
+		var FF_y; 
+		if(FF_N == 1){
+			FF_y = web_h;
+		}
+		else if(FF_N <= 2){
+			FF_y = ((i+1)/(FF_N+1))*(web_h*2);
+		}
+		else if(FF_N >= 3){
+			FF_y = 300+(i/(FF_N-1))*((web_h-100)*1.8);
+		}
 		var and_w = 50;
 		var and_h = 50*(times/2);
 		var hh = [];
@@ -88,10 +202,10 @@ function doCanvas(arg) {
 			var times = 0;
 			var move_y;
 			if(u_d == -1){
-				move_y = (i == 0)? -170:-20;
+				move_y = -170+150*i;
 				and_x = 300;
 			}else if(u_d == 1){
-				move_y = (i == 0)? 120:270;
+				move_y = 120+150*i;
 				and_x = 650;
 			}
 			for(j = 0; j < sum; j++){
@@ -154,10 +268,15 @@ function doCanvas(arg) {
 
 		for(i = 1; i <= FF_N; i++){
 			var origin_y;
-			if(FF_N > 1)
-				origin_y = 300+((i-1)/(FF_N-1))*(web_h-100);
-			else
-				origin_y = web_h/2;
+			if(FF_N == 1){
+				origin_y = web_h;
+			}
+			else if(FF_N <= 2){
+				origin_y = ((i+1)/(FF_N+1))*(web_h*2);
+			}
+			else if(FF_N >= 3){
+				origin_y = 300+(i/(FF_N-1))*((web_h-100)*1.8);
+			}
 			var x = FF_x+0.9*width;
 			var y = origin_y-0.3*height;
 			line_len(x, y, (i-1)*unit_r, 0);

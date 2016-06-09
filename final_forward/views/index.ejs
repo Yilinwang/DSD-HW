@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="/css/final.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="js/jquery.min.js"></script>
+<link href="/css/final.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
 </head>
 <body>
+<div class="section">
 	<div class="left">
-		<input type ="Button" value="Draw" onClick="makeCircuit()">
+		<div id="ff">
+		<fieldset id="myfieldset">
+			<legend>Forward engineering</legend>
+			Input number: <br><input type="number" name="inputN" value="2" min="1" max="5" placeholder="1~5"><br>
+			State number: <br><input type="number" name="stateN" value="3" min="1" max="5" placeholder="1~5"><br>
+			<br><button id="submit" onClick="createInput()">Submit</button>
+		</fieldset>
+		</div>
+		<p id="pp"></p>
+		<table id="myTable">
+		</table>
+		<br>
+		<button onClick="makeCircuit()">Design Circuit</button>
 	</div>
-	 
-	<canvas id='c' style = 'position: absolute; left: 100px; top: 0px;'></canvas>
+	<div class="right">
+		<canvas id='c'></canvas>
+	</div>
+</div>
 
-	<script src='/js/final.js'></script>
+
+<script src='/js/final.js'></script>
 </body>
 
 
