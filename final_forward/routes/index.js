@@ -8,12 +8,34 @@ router.get('/', function(req, res, next) {
 	res.render('index.ejs');
 });
 
+var arg = "";
+
+router.post('/transfer_input', function(req, res){
+	var stateN = parseInt(req.body.stateN);
+	var inputN = parseInt(req.body.inputN);
+
+	arg += req.body.stateN+" ";
+	arg += req.body.inputN+" ";
+	var i;
+	var sum = stateN+inputN;
+	for(i = 0; i < stateN; i++){
+		arg += req.body.type[i]+" ";
+	}
+	for(i = 0; i < parseInt(Math.pow(2, sum)); i++){
+		arg += i+" ";
+		arg += req.body.newState[i]+" ";
+		arg += req.body.output[i]+" ";
+	}
+});
+
 router.get('/makeCircuit', function(req, res){
 	// execute forward_alg
-	var child = exec('./forward_alg',  (error, stdout, stderr) => {
+	console.log(arg);
+	var child = exec('./sdt '+arg, (error, stdout, stderr) => {
 		if (error) {
 			throw error;
 		}
+		console.log(stdout);
 		res.end(stdout);
 	});
 });

@@ -1,8 +1,48 @@
+var inputN, stateN;
 function makeCircuit(){
+	var type = [];
+	var newState = [];
+	var output = [];
+	var i, j;
+	for(i = 1; i <= stateN; i++){
+		type.push($('input[name=type_Q'+i+']:checked').val());
+	}
+	for(i = 0; i < Math.pow(2, stateN+inputN); i++){
+		var bin = "";
+		for(j = 0; j < stateN; j++){
+			bin += $('input[name='+i+'_'+j+']').val();
+		}
+		newState.push(parseInt(bin, 2));
+		output.push(parseInt($('input[name='+i+'_'+stateN+']').val()));
+
+	}
+
+	//console.log(type, newState, output);
+	var newState_str = "";
+	var output_str = "";
+	var type_str = "";
+	for(i = 0; i < parseInt(Math.pow(2, stateN+inputN)); i++){
+		newState_str += newState[i];
+		output_str+= output[i];
+		type_str+= type[i];
+	}
+	$.post('/transfer_input', {stateN: stateN, inputN: inputN, type: type_str, newState: newState_str, output: output_str}, function(data){
+		var arg = data.split('\n');
+		console.log(arg);
+		//doCanvas(arg);
+	});
+
+	$.get('/makeCircuit',function(data){
+		var arg = data.split('\n');
+		console.log('hi: '+arg);
+		//doCanvas(arg);
+	});
+	/*
 	$.get('/makeCircuit',function(data){
 		var arg = data.split('\n');
 		doCanvas(arg);
 	});
+	*/
 }
 
 function remove(id) {
@@ -12,8 +52,8 @@ function remove(id) {
 }
 
 function createInput(){
-	var inputN = $('input[name="inputN"]').val();
-	var stateN = $('input[name="stateN"]').val();
+	inputN = parseInt($('input[name="inputN"]').val());
+	stateN = parseInt($('input[name="stateN"]').val());
 	createInputType(stateN);
 	createInputTable(stateN, inputN);
 	remove("myfieldset");
@@ -25,15 +65,13 @@ function createInputType(stateN){
 	var i, j;
 
 	for(i = stateN; i > 0; i--){
-		$( "<form>Type of FF for Q"+i+":"+"<input type='radio' name='type' checked> D <input type='radio' name='type'> T <input type='radio' name='type'> JK <input type='radio' name='type'> RS Flip Flop</form>").insertAfter( "#pp" );
+		$( "<form>Type of FF for Q"+i+":"+"<input type='radio' name='type_Q"+i+"' value='D' checked> D <input type='radio' name='type_Q"+i+"' value='T'> T <input type='radio' name='type_Q"+i+"' value='J'> JK <input type='radio' name='type_Q"+i+"' value='R'> RS Flip Flop</form><br>").insertAfter( "#pp" );
 	}
 
 }
 
 function createInputTable(data, data2){
-	var stateN = parseInt(data);
-	var inputN = parseInt(data2);
-	var rowN = Math.pow(stateN+inputN, 2);
+	var rowN = Math.pow(2, stateN+inputN);
 	var table = document.getElementById("myTable");
 	var header = table.createTHead();
 	var row;  
@@ -53,8 +91,7 @@ function createInputTable(data, data2){
 		}
 		for(j = 0; j < stateN+1; j++){
 			cell = row.insertCell(table.rows[i].cells.length);		//insert from front
-			cell.innerHTML = "<input type='number' value='0' min='0' max='1'>";
-
+			cell.innerHTML = "<input name='"+i+"_"+j+"' type='number' value='0' min='0' max='1'>";
 			//document.body.appendChild(p);
 
 		}
