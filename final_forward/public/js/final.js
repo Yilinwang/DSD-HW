@@ -153,7 +153,7 @@ function doCanvas(arg) {
 		//J2=210 
 		//K2=002 110
 
-		arg = [ "2", "1", "101", "JK", "211", "202221", "D", "200012" ];
+		//arg = [ "2", "1", "101", "JK", "211", "202221", "D", "200012" ];
 		stateN = parseInt(arg[0]);
 		inputN = parseInt(arg[1]);
 		var FF_type = [];
