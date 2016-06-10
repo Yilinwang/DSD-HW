@@ -33,7 +33,7 @@ int num_terms_ff = 0;
 int terms_ff[MAX][MAX];
 
 int getFFId(string s) {
-    if(s == "S")	//SR
+    if(s == "R")	//RS
         return SR;
     if(s == "J")	//JK
         return JK;
@@ -61,13 +61,15 @@ int excitation(int ff_type, int transition, int param) {
 }
 
 void printTerms(int* prim, int* prim_mask, int* prim_required, int prim_cnt, int num_var) {
-    bool space_flag = false;
+    //bool space_flag = false;
 
     for(int i = 0; i < prim_cnt; i++) {
         if(prim_required[i]) {
+			/*
             if(space_flag)
                 cout << " ";
             space_flag = true;
+			*/
             for(int s = num_var - 1; s >= 0; s--) {
                 if((prim_mask[i] & (1 << s)) == 0)
                     cout << 2;
@@ -83,7 +85,7 @@ void printTerms(int* prim, int* prim_mask, int* prim_required, int prim_cnt, int
 }
 
 void printFFType(int ff_type) {
-    string type_strings[] = {"SR", "JK", "D", "T"};
+    string type_strings[] = {"RS", "JK", "D", "T"};
     cout << type_strings[ff_type] << endl;
 }
 
@@ -125,7 +127,7 @@ int main(int argc, char *argv[]) {
         state_transition[this_state_input] = next_state;
     }
 
-    cout << num_state << " " << num_input << endl;
+    cout << num_state << endl << num_input << endl;
     
     /* simplified the output expression. */
     Quine_McCluskey(num_state + num_input, num_terms_out, terms_out, terms_dont_care, prim, prim_mask, prim_required, prim_cnt);

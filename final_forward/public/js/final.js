@@ -1,4 +1,4 @@
-var inputN, stateN;
+var inputN, stateN, sumN;
 function makeCircuit(){
 	var type = [];
 	var newState = [];
@@ -27,22 +27,13 @@ function makeCircuit(){
 		type_str+= type[i];
 	}
 	$.post('/transfer_input', {stateN: stateN, inputN: inputN, type: type_str, newState: newState_str, output: output_str}, function(data){
-		var arg = data.split('\n');
-		console.log(arg);
-		//doCanvas(arg);
 	});
 
 	$.get('/makeCircuit',function(data){
 		var arg = data.split('\n');
-		console.log('hi: '+arg);
-		//doCanvas(arg);
-	});
-	/*
-	$.get('/makeCircuit',function(data){
-		var arg = data.split('\n');
+		console.log(arg);
 		doCanvas(arg);
 	});
-	*/
 }
 
 function remove(id) {
@@ -54,13 +45,14 @@ function remove(id) {
 function createInput(){
 	inputN = parseInt($('input[name="inputN"]').val());
 	stateN = parseInt($('input[name="stateN"]').val());
+	sumN = inputN + stateN;
 	createInputType(stateN);
 	createInputTable(stateN, inputN);
 	remove("myfieldset");
 
 }
 
-function createInputType(stateN){
+function createInputType(){
 
 	var i, j;
 
@@ -70,7 +62,7 @@ function createInputType(stateN){
 
 }
 
-function createInputTable(data, data2){
+function createInputTable(){
 	var rowN = Math.pow(2, stateN+inputN);
 	var table = document.getElementById("myTable");
 	var header = table.createTHead();
@@ -149,18 +141,27 @@ function doCanvas(arg) {
 		//K1=212 
 		//J2=210 
 		//K2=002 110
-		arg = [1, 1, 3, "110 101 111", "111", 4, "210", "200", 1, "000"];
-		var FF_N = parseInt(arg[0]);
-		var input_N = parseInt(arg[1]);
+		stateN = parseInt(arg[0]);
+		inputN = parseInt(arg[1]);
 		var FF_type = [];
 		var i;
 		var tmp = 3;
 		var exp = [];
 		var output_exp = arg[2];
 
-		for(i = 0; i < FF_N; i++){
-			FF_type.push(parseInt(arg[tmp]));
-			if(parseInt(arg[tmp]) <= 2){
+		for(i = 0; i < stateN; i++){
+			var type_int;
+			if(arg[tmp] == "D"){
+				type_int = 1;
+			}else if(arg[tmp] == "T"){
+				type_int = 2;
+			}else if(arg[tmp] == "JK"){
+				type_int = 3;
+			}else if(arg[tmp] == "RS"){
+				type_int = 4;
+			}
+			FF_type.push(type_int);
+			if(type_int <= 2){
 				exp.push(arg[tmp+1]);
 				tmp += 2;
 			}else{
@@ -169,6 +170,7 @@ function doCanvas(arg) {
 				tmp += 3;
 			}
 		}
+		console.log(exp, FF_type);
 
 		var web_h = $(document).height();
 		var web_w = $(document).width();
@@ -177,29 +179,29 @@ function doCanvas(arg) {
 
 		ctx.scale(1/1.8, 1/1.8);
 
-		leftLine(input_N, input_N+FF_N);
-		rightLine(FF_N, input_N);
+		leftLine();
+		rightLine();
 
 		var tmp2 = 0;
 		for(i = 0; i < FF_type.length; i++){
-			if(FF_N == 1){
+			if(stateN == 1){
 				FF(FF_type[i], FF_x, web_h, 150, 150);
 			}
-			else if(FF_N <= 2){
-				FF(FF_type[i], FF_x, ((i+1)/(FF_N+1))*(web_h*2), 150, 150);
+			else if(stateN <= 2){
+				FF(FF_type[i], FF_x, ((i+1)/(stateN+1))*(web_h*2), 150, 150);
 			}
-			else if(FF_N >= 3){
-				FF(FF_type[i], FF_x, 300+(i/(FF_N-1))*((web_h-100)*1.8), 150, 150);
+			else if(stateN >= 3){
+				FF(FF_type[i], FF_x, 300+(i/(stateN-1))*((web_h-100)*1.8), 150, 150);
 			}
 
 			if(FF_type[i] <= 2){
-				link(i+1, -1, FF_N, input_N+FF_N, exp[tmp2]);
+				link(i+1, -1, exp[tmp2]);
 				tmp2++;
 			}
 
 			else if(FF_type[i] >= 3){
-				link(i+1, -1, FF_N, input_N+FF_N, exp[tmp2]);
-				link(i+1, 1, FF_N, input_N+FF_N, exp[tmp2+1]);
+				link(i+1, -1, exp[tmp2]);
+				link(i+1, 1, exp[tmp2+1]);
 				tmp2 += 2;
 			}
 		}
@@ -214,22 +216,31 @@ function doCanvas(arg) {
 		redraw();
 	}
 
-	function link(FF_i, u_d, FF_N, sum, data){
+	function link(FF_i, u_d, data){
 		//J1=120 211 -> y2 * x' + y1 * x
-		var str = data.split(' ');
+		//var str = data.split(' ');
 		var i, j;
+		var str = [];
+		for(i = 0; i < data.length/sumN; i++){
+			var tmp_str = "";
+			for(j = 0; j < sumN; j++){
+				tmp_str += data[i*sumN+j];
+			}
+			str.push(tmp_str);
+		}   
+		console.log(data, str);
 		var web_h = $(document).height();
 		var web_w = $(document).width();
 		var FF_x = web_w-500;
 		var FF_y; 
-		if(FF_N == 1){
+		if(stateN == 1){
 			FF_y = web_h;
 		}
-		else if(FF_N <= 2){
-			FF_y = ((i+1)/(FF_N+1))*(web_h*2);
+		else if(stateN == 2){
+			FF_y = ((FF_i)/(stateN+1))*(web_h*2);
 		}
-		else if(FF_N >= 3){
-			FF_y = 300+(i/(FF_N-1))*((web_h-100)*1.8);
+		else if(stateN >= 3){
+			FF_y = 300+(FF_i/(stateN-1))*((web_h-100)*1.8);
 		}
 		var and_w = 50;
 		var and_h = 50*(times/2);
@@ -245,11 +256,11 @@ function doCanvas(arg) {
 				move_y = 120+150*i;
 				and_x = 650;
 			}
-			for(j = 0; j < sum; j++){
+			for(j = 0; j < sumN; j++){
 				if(parseInt(str[i][j]) != 2){
 					var move_x = (parseInt(str[i][j]) == 1)? 0:1;
 					var unit_l = 20;
-					line_xxyy(10+unit_l*((sum-j-1)*2+move_x), FF_y+move_y+unit_l*(times), and_x, FF_y+move_y+unit_l*(times));
+					line_xxyy(10+unit_l*((sumN-j-1)*2+move_x), FF_y+move_y+unit_l*(times), and_x, FF_y+move_y+unit_l*(times));
 					times = times + 1;
 				}
 			}
@@ -266,19 +277,22 @@ function doCanvas(arg) {
 		var or_h = 150*str.length/1.5;
 		var FF_w = 150;
 		var FF_h = 150;
-		OR(and_x+and_w+150, avg-or_h/2, or_w, or_h);
+		if(data.length / sumN > 1)
+			OR(and_x+and_w+150, avg-or_h/2, or_w, or_h);
+		else
+			line_xxyy(and_x+and_w+150, avg, and_x+and_w+150+or_w+0.5*or_h, avg);
 		line_xxyy(and_x+and_w+150+or_w+0.5*or_h, avg, FF_x-0.9*FF_w, avg);
 		line_xxyy(FF_x-0.9*FF_w, avg, FF_x-0.9*FF_w, FF_y+u_d*0.3*FF_h);
 	}
 
-	function leftLine(input_N, sum){
+	function leftLine(){
 		var web_h = $(document).height();
 		var web_w = $(document).width();
 		var input_x = 10;
 		var unit = 20;
 		var i;
-		for(i = 1; i <= 2*sum; i++){
-			if(i <= 2*input_N && i % 2 == 1){
+		for(i = 1; i <= 2*sumN; i++){
+			if(i <= 2*inputN && i % 2 == 1){
 				ctx.font = "18px Consola";
 				ctx.fillText('X'+(i+1)/2, input_x+(i-1)*unit-10, 40);
 				line_len(input_x+(i-1)*unit, 120-40, 0, 2500+40);
@@ -292,7 +306,7 @@ function doCanvas(arg) {
 		}
 	}
 
-	function rightLine(FF_N, input_N){
+	function rightLine(){
 		var i;
 		var web_h = $(document).height();
 		var web_w = $(document).width();
@@ -303,23 +317,23 @@ function doCanvas(arg) {
 		var unit_r = 30;
 		var unit_l = 20;
 
-		for(i = 1; i <= FF_N; i++){
+		for(i = 1; i <= stateN; i++){
 			var origin_y;
-			if(FF_N == 1){
+			if(stateN == 1){
 				origin_y = web_h;
 			}
-			else if(FF_N <= 2){
-				origin_y = ((i+1)/(FF_N+1))*(web_h*2);
+			else if(stateN == 2){
+				origin_y = (i/(stateN+1))*(web_h*2);
 			}
-			else if(FF_N >= 3){
-				origin_y = 300+(i/(FF_N-1))*((web_h-100)*1.8);
+			else if(stateN >= 3){
+				origin_y = 300+(i/(stateN-1))*((web_h-100)*1.8);
 			}
 			var x = FF_x+0.9*width;
 			var y = origin_y-0.3*height;
 			line_len(x, y, (i-1)*unit_r, 0);
-			line_xxyy(x+(i-1)*unit_r, y, x+(i-1)*unit_r, 30+(FF_N-i)*0.5*unit_r);
-			line_xxyy(x+(i-1)*unit_r, 30+(FF_N-i)*0.5*unit_r, 10+unit_l*(2*input_N+2*(FF_N-i)), 30+(FF_N-i)*0.5*unit_r);
-			line_xxyy(10+unit_l*(2*input_N+2*(FF_N-i)), 30+(FF_N-i)*0.5*unit_r, 10+unit_l*(2*input_N+2*(FF_N-i)), 120);
+			line_xxyy(x+(i-1)*unit_r, y, x+(i-1)*unit_r, 30+(stateN-i)*0.5*unit_r);
+			line_xxyy(x+(i-1)*unit_r, 30+(stateN-i)*0.5*unit_r, 10+unit_l*(2*inputN+2*(stateN-i)), 30+(stateN-i)*0.5*unit_r);
+			line_xxyy(10+unit_l*(2*inputN+2*(stateN-i)), 30+(stateN-i)*0.5*unit_r, 10+unit_l*(2*inputN+2*(stateN-i)), 120);
 		}
 
 	}
@@ -339,6 +353,7 @@ function doCanvas(arg) {
 	function FF(type, centerX, centerY, width, height){
 		x = centerX - 0.5*width;
 		y = centerY - 0.5*height;
+		console.log('x = '+ x);
 		var margin = 10;
 		ctx.font = "24px Consola";
 		ctx.rect(x, y, width, height);
@@ -372,8 +387,8 @@ function doCanvas(arg) {
 			line_len(x+0.2*width, y+0.5*height, -0.2*width, 0.1*height);
 		}
 
-		line_len(x, y+0.2*height, -0.4*width, 0);
 		line_len(x+width, y+0.2*height, 0.4*width, 0);
+		line_len(x, y+0.2*height, -0.4*width, 0);
 	}
 
 	// Gates and FFs

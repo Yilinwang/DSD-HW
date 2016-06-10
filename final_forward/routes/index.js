@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
 var arg = "";
 
 router.post('/transfer_input', function(req, res){
+	console.log('transfer_input'+req.body.type);
 	var stateN = parseInt(req.body.stateN);
 	var inputN = parseInt(req.body.inputN);
 
@@ -30,7 +31,7 @@ router.post('/transfer_input', function(req, res){
 
 router.get('/makeCircuit', function(req, res){
 	// execute forward_alg
-	console.log(arg);
+	console.log('arg of sdt', arg);
 	var child = exec('./sdt '+arg, (error, stdout, stderr) => {
 		if (error) {
 			throw error;
