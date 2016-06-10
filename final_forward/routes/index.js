@@ -11,10 +11,9 @@ router.get('/', function(req, res, next) {
 var arg = "";
 
 router.post('/transfer_input', function(req, res){
-	console.log('transfer_input'+req.body.type);
 	var stateN = parseInt(req.body.stateN);
 	var inputN = parseInt(req.body.inputN);
-
+	arg = "";
 	arg += req.body.stateN+" ";
 	arg += req.body.inputN+" ";
 	var i;
@@ -27,6 +26,7 @@ router.post('/transfer_input', function(req, res){
 		arg += req.body.newState[i]+" ";
 		arg += req.body.output[i]+" ";
 	}
+	res.end();
 });
 
 router.get('/makeCircuit', function(req, res){

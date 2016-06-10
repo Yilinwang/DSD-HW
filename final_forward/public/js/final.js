@@ -27,13 +27,13 @@ function makeCircuit(){
 		type_str+= type[i];
 	}
 	$.post('/transfer_input', {stateN: stateN, inputN: inputN, type: type_str, newState: newState_str, output: output_str}, function(data){
+		$.get('/makeCircuit',function(data){
+			var arg = data.split('\n');
+			console.log(arg);
+			doCanvas(arg);
+		});
 	});
 
-	$.get('/makeCircuit',function(data){
-		var arg = data.split('\n');
-		console.log(arg);
-		doCanvas(arg);
-	});
 }
 
 function remove(id) {
@@ -48,8 +48,13 @@ function createInput(){
 	sumN = inputN + stateN;
 	createInputType(stateN);
 	createInputTable(stateN, inputN);
+	createButton();
 	remove("myfieldset");
 
+}
+
+function createButton(){
+	$("<br><button onClick='makeCircuit()'>Design Circuit</button>").insertAfter("#myTable");
 }
 
 function createInputType(){
@@ -63,7 +68,7 @@ function createInputType(){
 }
 
 function createInputTable(){
-	var rowN = Math.pow(2, stateN+inputN);
+	var rowN = Math.pow(2, sumN);
 	var table = document.getElementById("myTable");
 	var header = table.createTHead();
 	var row;  
@@ -76,10 +81,16 @@ function createInputTable(){
 		//tr
 		bin = i.toString(2);
 		row = table.insertRow(table.rows.length);
-		for(j = 0; j < stateN+inputN; j++){
+		for(j = 0; j < sumN; j++){
 			//td
-			cell = row.insertCell(0);		//insert from front
-			cell.innerHTML = (j >= bin.length)? 0 : bin[j];
+			if(j < bin.length){
+				cell = row.insertCell(table.rows[i].cells.length);		//insert from back
+				cell.innerHTML = bin[j];
+			}
+			else{			//add 0 to the front
+				cell = row.insertCell(0);
+				cell.innerHTML = '0';
+			}
 		}
 		for(j = 0; j < stateN+1; j++){
 			cell = row.insertCell(table.rows[i].cells.length);		//insert from front
@@ -195,13 +206,13 @@ function doCanvas(arg) {
 			}
 
 			if(FF_type[i] <= 2){
-				link(i+1, -1, exp[tmp2]);
+				link(i, -1, exp[tmp2]);
 				tmp2++;
 			}
 
 			else if(FF_type[i] >= 3){
-				link(i+1, -1, exp[tmp2]);
-				link(i+1, 1, exp[tmp2+1]);
+				link(i, -1, exp[tmp2]);
+				link(i, 1, exp[tmp2+1]);
 				tmp2 += 2;
 			}
 		}
@@ -237,7 +248,7 @@ function doCanvas(arg) {
 			FF_y = web_h;
 		}
 		else if(stateN == 2){
-			FF_y = ((FF_i)/(stateN+1))*(web_h*2);
+			FF_y = ((FF_i+1)/(stateN+1))*(web_h*2);
 		}
 		else if(stateN >= 3){
 			FF_y = 300+(FF_i/(stateN-1))*((web_h-100)*1.8);
@@ -295,10 +306,10 @@ function doCanvas(arg) {
 			if(i <= 2*inputN && i % 2 == 1){
 				ctx.font = "18px Consola";
 				ctx.fillText('X'+(i+1)/2, input_x+(i-1)*unit-10, 40);
-				line_len(input_x+(i-1)*unit, 120-40, 0, 2500+40);
+				line_len(input_x+(i-1)*unit, 120-40, 0, 2710+40);
 			}
 			else{
-				line_len(input_x+(i-1)*unit, 120, 0, 2500);
+				line_len(input_x+(i-1)*unit, 120, 0, 2710);
 			}
 			if(i % 2 == 1){
 				NOT(input_x+(i-1)*unit, 120-5*2.732, 21);
@@ -317,23 +328,23 @@ function doCanvas(arg) {
 		var unit_r = 30;
 		var unit_l = 20;
 
-		for(i = 1; i <= stateN; i++){
+		for(i = 0; i < stateN; i++){
 			var origin_y;
 			if(stateN == 1){
 				origin_y = web_h;
 			}
 			else if(stateN == 2){
-				origin_y = (i/(stateN+1))*(web_h*2);
+				origin_y = ((i+1)/(stateN+1))*(web_h*2);
 			}
 			else if(stateN >= 3){
 				origin_y = 300+(i/(stateN-1))*((web_h-100)*1.8);
 			}
 			var x = FF_x+0.9*width;
 			var y = origin_y-0.3*height;
-			line_len(x, y, (i-1)*unit_r, 0);
-			line_xxyy(x+(i-1)*unit_r, y, x+(i-1)*unit_r, 30+(stateN-i)*0.5*unit_r);
-			line_xxyy(x+(i-1)*unit_r, 30+(stateN-i)*0.5*unit_r, 10+unit_l*(2*inputN+2*(stateN-i)), 30+(stateN-i)*0.5*unit_r);
-			line_xxyy(10+unit_l*(2*inputN+2*(stateN-i)), 30+(stateN-i)*0.5*unit_r, 10+unit_l*(2*inputN+2*(stateN-i)), 120);
+			line_len(x, y, i*unit_r, 0);
+			line_xxyy(x+i*unit_r, y, x+i*unit_r, 30+(stateN-i-1)*0.5*unit_r);
+			line_xxyy(x+i*unit_r, 30+(stateN-i-1)*0.5*unit_r, 10+unit_l*(2*inputN+2*(stateN-i-1)), 30+(stateN-i-1)*0.5*unit_r);
+			line_xxyy(10+unit_l*(2*inputN+2*(stateN-i-1)), 30+(stateN-i-1)*0.5*unit_r, 10+unit_l*(2*inputN+2*(stateN-i-1)), 120);
 		}
 
 	}
@@ -353,7 +364,6 @@ function doCanvas(arg) {
 	function FF(type, centerX, centerY, width, height){
 		x = centerX - 0.5*width;
 		y = centerY - 0.5*height;
-		console.log('x = '+ x);
 		var margin = 10;
 		ctx.font = "24px Consola";
 		ctx.rect(x, y, width, height);
