@@ -462,7 +462,7 @@ function doCanvas(arg) {
 			line_len(x, y+0.7*height, 0.2*width, 0.1*height);
 			line_len(x+0.2*width, y+0.8*height, -0.2*width, 0.1*height);
 		}
-		else{
+		else if(type ==3){
 			line_len(x, y+0.4*height, 0.2*width, 0.1*height);
 			line_len(x+0.2*width, y+0.5*height, -0.2*width, 0.1*height);
 		}
